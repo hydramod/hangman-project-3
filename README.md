@@ -44,3 +44,106 @@ This is the main function that runs the game. It initializes the game by selecti
 
 - main()
 This function calls the play() function to start the game.
+
+## Game Testing
+
+1. Unit test the "get_word" function to ensure it returns a valid word in uppercase letters from the nltk corpus.
+
+- This test can be passed by verifying that the output of the "get_word" function is a string of uppercase letters that is a valid English word in the nltk corpus. We can use the following code to perform this test:
+
+```python
+def test_get_word():
+    english_words = set(words.words())
+    word = get_word()
+    assert word.isalpha() and word.isupper() and word in english_words
+```
+This test downloads the English words from the nltk corpus, calls the "get_word" function to get a word, and then asserts that the word returned is a string of uppercase letters that is a valid English word in the nltk corpus.
+
+2. Unit test the "display_hangman" function to ensure it returns the correct ASCII art representation of the hangman at each stage.
+
+- This test can be passed by manually comparing the output of the "display_hangman" function at each stage to the expected ASCII art representation of the hangman. We can use the following code to perform this test:
+
+```python
+def test_display_hangman():
+    stages = ["""
+                   --------
+                   |      |
+                   |      O
+                   |     \\|/
+                   |      |
+                   |     / \\
+                   -
+                """,
+                """
+                   --------
+                   |      |
+                   |      O
+                   |     \\|/
+                   |      |
+                   |     / 
+                   -
+                """,
+                """
+                   --------
+                   |      |
+                   |      O
+                   |     \\|/
+                   |      |
+                   |      
+                   -
+                """,
+                """
+                   --------
+                   |      |
+                   |      O
+                   |     \\|
+                   |      |
+                   |     
+                   -
+                """,
+                """
+                   --------
+                   |      |
+                   |      O
+                   |      |
+                   |      |
+                   |     
+                   -
+                """,
+                """
+                   --------
+                   |      |
+                   |      O
+                   |    
+                   |      
+                   |     
+                   -
+                """,
+                """
+                   --------
+                   |      |
+                   |      
+                   |    
+                   |      
+                   |     
+                   -
+                """
+            ]
+    for i in range(len(stages)):
+        assert display_hangman(i) == stages[i]
+```
+This test compares the output of the "display_hangman" function at each stage to the expected ASCII art representation of the hangman.
+
+3. Test the "play" function with valid inputs to ensure it correctly initializes the game and allows the user to input valid guesses for both letters and words until they either win or lose.
+
+- This test can be passed by manually playing the game and verifying that it initializes correctly, accepts valid guesses for both letters and words, and correctly determines whether the user has won or lost the game.
+
+Test the "play" function with invalid inputs to ensure it correctly handles and displays error messages for invalid guesses.
+
+Test the "play" function by intentionally losing the game to ensure it correctly displays the word and prompts the user to play again.
+
+Test the "play" function by intentionally winning the game to ensure it correctly prompts the user to play again.
+
+Test the "main" function to ensure it correctly calls the "play" function when executed.
+
+Test the entire code by running it and playing the game to ensure it functions correctly and the game is enjoyable.
