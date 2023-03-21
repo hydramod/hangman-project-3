@@ -61,7 +61,7 @@ This test downloads the English words from the nltk corpus, calls the "get_word"
 
 2. Unit test the "display_hangman" function to ensure it returns the correct ASCII art representation of the hangman at each stage.
 
-- This test can be passed by manually comparing the output of the "display_hangman" function at each stage to the expected ASCII art representation of the hangman. We can use the following code to perform this test:
+- This test can be passed by manually comparing the output of the "display_hangman" function at each stage to the expected ASCII art representation of the hangman. Alternatively we can use the following code to perform this test:
 
 ```python
 def test_display_hangman():
@@ -142,10 +142,78 @@ This test compares the output of the "display_hangman" function at each stage to
 
 - The "play" function was tested by inputting invalid characters (such as numbers, symbols, or non-English letters) as guesses for both letters and words. The function handled the input errors correctly by displaying a message informing the user of the invalid input and prompting them to try again with a valid guess.
 
-Test the "play" function by intentionally losing the game to ensure it correctly displays the word and prompts the user to play again.
+5. Test the "play" function by intentionally losing the game to ensure it correctly displays the word and prompts the user to play again.
 
-Test the "play" function by intentionally winning the game to ensure it correctly prompts the user to play again.
+- To test the "play" function by intentionally losing the game, we can set the number of maximum incorrect guesses to 1 and then guess an incorrect letter to trigger the game over condition. We can then verify that the function correctly displays the word and prompts the user to play again. We can use the following code to perform this test:
 
-Test the "main" function to ensure it correctly calls the "play" function when executed.
+```python
+def test_play_lose():
+    word = get_word()
+    max_incorrect_guesses = 1
+    incorrect_guesses = 0
+    guessed_letters = set()
+    guessed_words = set()
+    while incorrect_guesses < max_incorrect_guesses:
+        guess = "x"  # guess an incorrect letter
+        if guess not in guessed_letters:
+            guessed_letters.add(guess)
+            if guess in word:
+                print("Correct!")
+            else:
+                print("Incorrect!")
+                incorrect_guesses += 1
+        else:
+            print("You already guessed that letter!")
+    print(f"The word was {word}.")
+    assert play(max_incorrect_guesses) == False
+```
 
-Test the entire code by running it and playing the game to ensure it functions correctly and the game is enjoyable.
+6. Test the "play" function by intentionally winning the game to ensure it correctly prompts the user to play again.
+
+- To test the "play" function by intentionally winning the game, we can set the maximum number of incorrect guesses to a large number (e.g., 10) and then guess all the correct letters in the word to trigger the win condition. We can then verify that the function correctly prompts the user to play again. We can use the following code to perform this test:
+
+```python
+def test_play_win():
+    word = get_word()
+    max_incorrect_guesses = 10
+    incorrect_guesses = 0
+    guessed_letters = set()
+    guessed_words = set()
+    while incorrect_guesses < max_incorrect_guesses and set(word) != guessed_letters:
+        guess = word[0]  # guess a correct letter
+        if guess not in guessed_letters:
+            guessed_letters.add(guess)
+            if guess in word:
+                print("Correct!")
+            else:
+                print("Incorrect!")
+                incorrect_guesses += 1
+        else:
+            print("You already guessed that letter!")
+    assert play(max_incorrect_guesses) == True
+```
+
+7. Test the "main" function to ensure it correctly calls the "play" function when executed.
+
+- To test the "main" function, we can use the unittest framework to mock the "play" function and then verify that the "play" function is called when the "main" function is executed. We can use the following code to perform this test:
+
+```python
+import unittest
+from unittest.mock import patch
+
+class TestMain(unittest.TestCase):
+    @patch('builtins.input', side_effect=['y', 'n'])
+    def test_main(self, mock_input):
+        with patch('game.play') as mock_play:
+            main()
+            mock_play.assert_called()
+```
+
+8. Test the entire code by running it and playing the game to ensure it functions correctly and the game is enjoyable.
+
+- To test the entire code by running it and playing the game, we can manually play the game and verify that it functions correctly and is enjoyable. We can use the following code to run the game:
+
+```python
+if __name__ == '__main__':
+    main()
+```
