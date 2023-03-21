@@ -16,9 +16,9 @@ The following modules are required to run this code:
 Clone the repository to your local machine.
 Open a terminal window and navigate to the project directory.
 Run the following command to start the game:
-Copy code
+```
 python hangman.py
-
+```
 ## How to play
 
 The game will select a random word.
