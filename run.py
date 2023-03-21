@@ -12,5 +12,11 @@ def get_word():
         word = random.choice(english_words)
     return word.upper()
 
+# main function to start the game
+def main():
+    word = get_word()
+    print(word)
 
-print(get_word())
+# call the main function
+if __name__ == "__main__":
+    main()
