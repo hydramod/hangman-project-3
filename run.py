@@ -61,6 +61,25 @@ def play():
             print(display_hangman(tries))
             print(word_completion)
             print("\n")
+        if guessed:
+            print("Congratulations, you guessed the word! You win!")
+            play_again_input = input("Would you like to play again? (Y/N)").upper()
+            while play_again_input != 'Y' and play_again_input != 'N':
+                play_again_input = input("Please enter either Y or N.").upper()
+            if play_again_input == 'Y':
+                play_again = True
+            else:
+                play_again = False
+        else:
+            print("Sorry, you ran out of tries. The word was " + word + ".")
+            play_again_input = input("Would you like to play again? (Y/N)").upper()
+            while play_again_input != 'Y' and play_again_input != 'N':
+                play_again_input = input("Please enter either Y or N.").upper()
+            if play_again_input == 'Y':
+                play_again = True
+            else:
+                play_again = False
+    print("Thanks for playing Hangman!")
 
 # function to display the hangman
 def display_hangman(tries):
