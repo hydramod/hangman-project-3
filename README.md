@@ -1,31 +1,46 @@
-![CI logo](https://codeinstitute.s3.amazonaws.com/fullstack/ci_logo_small.png)
+## Hangman Game
 
-Welcome Ali,
+This is a console-based Hangman game written in Python. The game randomly selects a word from the English dictionary and the player has to guess the word by suggesting letters or the complete word. The player has six tries to guess the word. For each incorrect guess, a part of the hangman figure is drawn. If the player is unable to guess the word within six tries, the game ends and the word is revealed.
 
-This is the Code Institute student template for deploying your third portfolio project, the Python command-line project. The last update to this file was: **August 17, 2021**
+## Requirements
 
-## Reminders
+The following modules are required to run this code:
 
-* Your code must be placed in the `run.py` file
-* Your dependencies must be placed in the `requirements.txt` file
-* Do not edit any of the other files or your code may not deploy properly
+- random
+- nltk
+- nltk.corpus
+- The words corpus from the nltk library also needs to be downloaded before running the code.
 
-## Creating the Heroku app
+## How to run the game
 
-When you create the app, you will need to add two buildpacks from the _Settings_ tab. The ordering is as follows:
+Clone the repository to your local machine.
+Open a terminal window and navigate to the project directory.
+Run the following command to start the game:
+Copy code
+python hangman.py
 
-1. `heroku/python`
-2. `heroku/nodejs`
+## How to play
 
-You must then create a _Config Var_ called `PORT`. Set this to `8000`
+The game will select a random word.
+The player must guess the word by suggesting letters or the complete word.
+If the suggestion is a single letter, the game will check if the letter is present in the word.
+If the suggestion is the complete word, the game will check if the word is correct.
+For each incorrect guess, a part of the hangman figure will be drawn.
+The player has six tries to guess the word.
+If the player guesses the word correctly, they win the game.
+If the player is unable to guess the word within six tries, they lose the game and the word is revealed.
+The player can choose to play again or exit the game.
 
-If you have credentials, such as in the Love Sandwiches project, you must create another _Config Var_ called `CREDS` and paste the JSON into the value field.
+## Function details
 
-Connect your GitHub repository and deploy as normal.
+- get_word()
+This function selects a random word from the English dictionary and returns it in uppercase.
 
-## Constraints
+- display_hangman(tries)
+This function takes the number of tries as input and returns the ASCII art for the corresponding state of the hangman.
 
-The deployment terminal is set to 80 columns by 24 rows. That means that each line of text needs to be 80 characters or less otherwise it will be wrapped onto a second line.
+- play()
+This is the main function that runs the game. It initializes the game by selecting a random word, setting the word completion status to underscores, and initializing the number of tries to six. It then prompts the player to guess a letter or word and continues until the player guesses the word correctly or runs out of tries.
 
------
-Happy coding!
+- main()
+This function calls the play() function to start the game.
