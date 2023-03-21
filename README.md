@@ -138,7 +138,9 @@ This test compares the output of the "display_hangman" function at each stage to
 
 - This test can be passed by manually playing the game and verifying that it initializes correctly, accepts valid guesses for both letters and words, and correctly determines whether the user has won or lost the game. This test cannot be fully automated as it requires user input. We can manually play the game and verify that it initializes correctly, accepts valid guesses for both letters and words, and correctly determines whether the user has won or lost the game.
 
-Test the "play" function with invalid inputs to ensure it correctly handles and displays error messages for invalid guesses.
+4. Test the "play" function with invalid inputs to ensure it correctly handles and displays error messages for invalid guesses.
+
+- The "play" function was tested by inputting invalid characters (such as numbers, symbols, or non-English letters) as guesses for both letters and words. The function handled the input errors correctly by displaying a message informing the user of the invalid input and prompting them to try again with a valid guess.
 
 Test the "play" function by intentionally losing the game to ensure it correctly displays the word and prompts the user to play again.
 
