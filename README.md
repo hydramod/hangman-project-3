@@ -52,12 +52,22 @@ This function calls the play() function to start the game.
 - This test can be passed by verifying that the output of the "get_word" function is a string of uppercase letters that is a valid English word in the nltk corpus. We can use the following code to perform this test:
 
 ```python
-def test_get_word():
-    english_words = set(words.words())
-    word = get_word()
-    assert word.isalpha() and word.isupper() and word in english_words
+class TestGetWord(unittest.TestCase):
+
+    def setUp(self):
+        nltk.download('words')
+        self.english_words = set(words.words())
+
+    def test_get_word_returns_valid_word_in_uppercase(self):
+        word = get_word()
+        self.assertIsInstance(word, str)
+        self.assertTrue(word.isupper())
+        self.assertIn(word.lower(), self.english_words)
+
+    def tearDown(self):
+        nltk.download('words', quiet=True)
 ```
-This test downloads the English words from the nltk corpus, calls the "get_word" function to get a word, and then asserts that the word returned is a string of uppercase letters that is a valid English word in the nltk corpus.
+In this test, we first download the English words from the nltk corpus in the setUp method. We then define the test_get_word_returns_valid_word_in_uppercase method, which calls the get_word function and verifies that the returned word is a string of uppercase letters that is a valid English word in the nltk corpus. We use the isinstance function to verify that the returned word is a string, the isupper method to verify that it is in uppercase letters, and the assertIn method to verify that the lowercase version of the word is in the set of English words. We also use the tearDown method to clean up after the test, by downloading the nltk corpus again with the quiet argument set to True to suppress any output.
 
 2. Unit test the "display_hangman" function to ensure it returns the correct ASCII art representation of the hangman at each stage.
 
