@@ -74,8 +74,9 @@ In this test, we first download the English words from the nltk corpus in the se
 - This test can be passed by manually comparing the output of the "display_hangman" function at each stage to the expected ASCII art representation of the hangman. Alternatively we can use the following code to perform this test:
 
 ```python
-def test_display_hangman():
-    stages = ["""
+def test_display_hangman(self):
+        expected = [  # final state: head, torso, both arms, and both legs
+                """
                    --------
                    |      |
                    |      O
@@ -84,6 +85,7 @@ def test_display_hangman():
                    |     / \\
                    -
                 """,
+                # head, torso, both arms, and one leg
                 """
                    --------
                    |      |
@@ -93,6 +95,7 @@ def test_display_hangman():
                    |     / 
                    -
                 """,
+                # head, torso, and both arms
                 """
                    --------
                    |      |
@@ -102,6 +105,7 @@ def test_display_hangman():
                    |      
                    -
                 """,
+                # head, torso, and one arm
                 """
                    --------
                    |      |
@@ -111,6 +115,7 @@ def test_display_hangman():
                    |     
                    -
                 """,
+                # head and torso
                 """
                    --------
                    |      |
@@ -120,6 +125,7 @@ def test_display_hangman():
                    |     
                    -
                 """,
+                # head
                 """
                    --------
                    |      |
@@ -129,6 +135,7 @@ def test_display_hangman():
                    |     
                    -
                 """,
+                # initial empty state
                 """
                    --------
                    |      |
@@ -139,8 +146,8 @@ def test_display_hangman():
                    -
                 """
             ]
-    for i in range(len(stages)):
-        assert display_hangman(i) == stages[i]
+        for tries in range(len(expected)):
+            assert display_hangman(tries) == expected[tries]
 ```
 This test compares the output of the "display_hangman" function at each stage to the expected ASCII art representation of the hangman.
 
