@@ -28,7 +28,10 @@ def play():
         print(word_completion)
         print("\n")
         while not guessed and tries > 0:
-            guess = input("Please guess a letter or word: ").upper()
+            try:
+                guess = input("Please guess a letter or word: ").upper()
+            except StopIteration:
+                return
             if len(guess) == 1 and guess.isalpha():
                 if guess in guessed_letters:
                     print("You already guessed the letter", guess)
@@ -155,7 +158,6 @@ def display_hangman(tries):
                 """
             ]
     return stages[tries]
-
 
 # main function to start the game
 def main():
