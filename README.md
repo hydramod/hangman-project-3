@@ -153,7 +153,7 @@ This test compares the output of the "display_hangman" function at each stage to
 
 3. Test the "play" function with valid inputs to ensure it correctly initializes the game and allows the user to input valid guesses for both letters and words until they either win or lose.
 
-- This test can be passed by manually playing the game and verifying that it initializes correctly, accepts valid guesses for both letters and words, and correctly determines whether the user has won or lost the game. This test cannot be fully automated as it requires user input. We can manually play the game and verify that it initializes correctly, accepts valid guesses for both letters and words, and correctly determines whether the user has won or lost the game.
+- This test can be passed by manually playing the game and verifying that it initializes correctly, accepts valid guesses for both letters and words, and correctly determines whether the user has won or lost the game. This test cannot be fully automated as it requires user input.
 
 4. Test the "play" function with invalid inputs to ensure it correctly handles and displays error messages for invalid guesses.
 
@@ -161,69 +161,23 @@ This test compares the output of the "display_hangman" function at each stage to
 
 5. Test the "play" function by intentionally losing the game to ensure it correctly displays the word and prompts the user to play again.
 
-- To test the "play" function by intentionally losing the game, we can set the number of maximum incorrect guesses to 1 and then guess an incorrect letter to trigger the game over condition. We can then verify that the function correctly displays the word and prompts the user to play again. We can use the following code to perform this test:
-
-```python
-def test_play_lose():
-    word = get_word()
-    max_incorrect_guesses = 1
-    incorrect_guesses = 0
-    guessed_letters = set()
-    guessed_words = set()
-    while incorrect_guesses < max_incorrect_guesses:
-        guess = "x"  # guess an incorrect letter
-        if guess not in guessed_letters:
-            guessed_letters.add(guess)
-            if guess in word:
-                print("Correct!")
-            else:
-                print("Incorrect!")
-                incorrect_guesses += 1
-        else:
-            print("You already guessed that letter!")
-    print(f"The word was {word}.")
-    assert play(max_incorrect_guesses) == False
-```
+- To test the "play" function by intentionally losing the game, we can set the number of maximum incorrect guesses to 1 and then guess an incorrect letter to trigger the game over condition. We can then verify that the function correctly displays the word and prompts the user to play again.
 
 6. Test the "play" function by intentionally winning the game to ensure it correctly prompts the user to play again.
 
-- To test the "play" function by intentionally winning the game, we can set the maximum number of incorrect guesses to a large number (e.g., 10) and then guess all the correct letters in the word to trigger the win condition. We can then verify that the function correctly prompts the user to play again. We can use the following code to perform this test:
-
-```python
-def test_play_win():
-    word = get_word()
-    max_incorrect_guesses = 10
-    incorrect_guesses = 0
-    guessed_letters = set()
-    guessed_words = set()
-    while incorrect_guesses < max_incorrect_guesses and set(word) != guessed_letters:
-        guess = word[0]  # guess a correct letter
-        if guess not in guessed_letters:
-            guessed_letters.add(guess)
-            if guess in word:
-                print("Correct!")
-            else:
-                print("Incorrect!")
-                incorrect_guesses += 1
-        else:
-            print("You already guessed that letter!")
-    assert play(max_incorrect_guesses) == True
-```
+- To test the "play" function by intentionally winning the game, we can set the maximum number of incorrect guesses to a large number (e.g., 10) and then guess all the correct letters in the word to trigger the win condition. We can then verify that the function correctly prompts the user to play again. 
 
 7. Test the "main" function to ensure it correctly calls the "play" function when executed.
 
 - To test the "main" function, we can use the unittest framework to mock the "play" function and then verify that the "play" function is called when the "main" function is executed. We can use the following code to perform this test:
 
 ```python
-import unittest
-from unittest.mock import patch
-
-class TestMain(unittest.TestCase):
-    @patch('builtins.input', side_effect=['y', 'n'])
-    def test_main(self, mock_input):
-        with patch('game.play') as mock_play:
-            main()
-            mock_play.assert_called()
+@patch('builtins.input', side_effect=['A', 'E', 'O', 'I', 'U'])
+   def test_play(self, mock_input):
+      with patch('sys.stdout', new_callable=io.StringIO) as mock_stdout:
+         play()
+         output = mock_stdout.getvalue()
+         self.assertIn("Let's play Hangman!", output)
 ```
 
 8. Test the entire code by running it and playing the game to ensure it functions correctly and the game is enjoyable.
@@ -231,6 +185,9 @@ class TestMain(unittest.TestCase):
 - To test the entire code by running it and playing the game, we can manually play the game and verify that it functions correctly and is enjoyable. We can use the following code to run the game:
 
 ```python
-if __name__ == '__main__':
-    main()
+@patch('builtins.input', side_effect=['y', 'n'])
+   def test_main(self, mock_input):
+      with patch('run.play') as mock_play:
+         main()
+         mock_play.assert_called()
 ```
