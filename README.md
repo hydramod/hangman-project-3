@@ -258,6 +258,7 @@ Here is the link to the app where it is currently deployed: https://hangman-ci-p
 # Credits
 
 - Documentaion on the [unittest framework](https://docs.python.org/3/library/unittest.html)
+- Documentation on the [Natural Languange Tool Kit](https://www.nltk.org/index.html#)
 - Information for [ansi escape code colors](https://replit.com/talk/learn/ANSI-Escape-Codes-in-Python/22803)
 - Inspiration for [ASCII art](https://codegolf.stackexchange.com/questions/135936/ascii-hangman-in-progress)
 - Inspiration for [ASCII art](https://ascii.co.uk/art/hangman)
