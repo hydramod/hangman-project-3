@@ -17,7 +17,7 @@ Clone the repository to your local machine.
 Open a terminal window and navigate to the project directory.
 Run the following command to start the game:
 ```
-python hangman.py
+python run.py
 ```
 ## How to play
 
@@ -46,6 +46,11 @@ This is the main function that runs the game. It initializes the game by selecti
 This function calls the play() function to start the game.
 
 ## Game Testing
+
+Run the following command to start the tests:
+```
+python tests.py
+```
 
 Initiatiing the Test class to run the followinf test cases
 
