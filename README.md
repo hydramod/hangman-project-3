@@ -213,11 +213,18 @@ Results for the automated and manual test have passed as expected, however on in
 
 # Deployment
 
+The game was uploaded to a cloud platform called Heroku. To do this, a new application was created and named in the settings tab.
 
+Additionally, buildpacks for both Python and Node.js were added in that order by selecting "Add buildpack". This ensures that the necessary dependencies are installed and configured correctly on Heroku.
+
+To deploy the app, the "Deployment Method" was selected under the Deploy tab, and then "GitHub" was clicked to connect to the relevant repository. "Enable Automatic Deploys" was also selected so that the app could be rebuilt automatically every time changes were pushed to GitHub.
+
+Here is the link to the app where it is currently deployed: https://hangman-ci-project-3.herokuapp.com
 
 # Credits
 
 - Documentaion on the [unittest framework](https://docs.python.org/3/library/unittest.html)
 - Inspiration for [ASCII art](https://codegolf.stackexchange.com/questions/135936/ascii-hangman-in-progress)
+- Inspiration for [ASCII art](https://ascii.co.uk/art/hangman)
 - Inspration for this project from [Kylie Ying](https://www.youtube.com/watch?v=cJJTnI22IF8)
 - Thank you google for everything else.
