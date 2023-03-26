@@ -18,6 +18,7 @@ def play():
     play_again = True
     while play_again:
         word = get_word()
+        print(word)
         word_completion = "_" * len(word)
         guessed = False
         guessed_letters = []

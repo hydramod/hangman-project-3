@@ -162,17 +162,25 @@ This test compares the output of the "display_hangman" function at each stage to
 
 3. Test the "play" function with valid inputs to ensure it correctly initializes the game and allows the user to input valid guesses for both letters and words until they either win or lose.
 
+![Hangman start](/docs/images/start.png)
+
 - This test can be passed by manually playing the game and verifying that it initializes correctly, accepts valid guesses for both letters and words, and correctly determines whether the user has won or lost the game. This test cannot be fully automated as it requires user input.
 
 4. Test the "play" function with invalid inputs to ensure it correctly handles and displays error messages for invalid guesses.
+
+![Hangman input not valid](/docs/images/not%20valid.png)
 
 - The "play" function was tested by inputting invalid characters (such as numbers, symbols, or non-English letters) as guesses for both letters and words. The function handled the input errors correctly by displaying a message informing the user of the invalid input and prompting them to try again with a valid guess.
 
 5. Test the "play" function by intentionally losing the game to ensure it correctly displays the word and prompts the user to play again.
 
+![Hangman lose](/docs/images/lose.png)
+
 - To test the "play" function by intentionally losing the game, we can set the number of maximum incorrect guesses to 1 and then guess an incorrect letter to trigger the game over condition. We can then verify that the function correctly displays the word and prompts the user to play again.
 
 6. Test the "play" function by intentionally winning the game to ensure it correctly prompts the user to play again.
+
+![Hangman win](/docs/images/win.png)
 
 - To test the "play" function by intentionally winning the game, we can set the maximum number of incorrect guesses to a large number (e.g., 10) and then guess all the correct letters in the word to trigger the win condition. We can then verify that the function correctly prompts the user to play again. 
 
@@ -187,16 +195,14 @@ This test compares the output of the "display_hangman" function at each stage to
          play()
          output = mock_stdout.getvalue()
          self.assertIn("Let's play Hangman!", output)
-```
 
-8. Test the entire code by running it and playing the game to ensure it functions correctly and the game is enjoyable.
-
-- To test the entire code by running it and playing the game, we can manually play the game and verify that it functions correctly and is enjoyable. We can use the following code to run the game:
-
-```python
 @patch('builtins.input', side_effect=['y', 'n'])
    def test_main(self, mock_input):
       with patch('run.play') as mock_play:
          main()
          mock_play.assert_called()
 ```
+
+8. Test the entire code by running it and playing the game to ensure it functions correctly and the game is enjoyable.
+
+- To test the entire code by running it and playing the game, we can manually play the game and verify that it functions correctly and is enjoyable.
