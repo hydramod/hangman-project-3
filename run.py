@@ -7,9 +7,9 @@ nltk.download('words')
 english_words = words.words()
 
 # function to choose a random word
-def get_word():
+def get_word(max_length):
     word = ""
-    while not word.isalpha():
+    while not word.isalpha() or len(word) > max_length:
         word = random.choice(english_words)
     return word.upper()
 
@@ -17,7 +17,17 @@ def get_word():
 def play():
     play_again = True
     while play_again:
-        word = get_word()
+        level = input("Select difficulty level (easy, medium, hard): ").lower()
+        if level == "easy":
+            max_length = 5
+        elif level == "medium":
+            max_length = 15
+        elif level == "hard":
+            max_length = 45
+        else:
+            print("Invalid input. Please try again.")
+            continue
+        word = get_word(max_length)
         word_completion = "_" * len(word)
         guessed = False
         guessed_letters = []
