@@ -17,7 +17,7 @@ def get_word(max_length):
 def play():
     play_again = True
     while play_again:
-        level = input("Select difficulty level (easy, medium, hard): ").lower()
+        level = input("Select difficulty level (\033[33mEasy\033[0m, \033[38;5;208mMedium\033[0m, \033[31mHard\033[0m): ").lower()
         if level == "easy":
             max_length = 5
         elif level == "medium":
@@ -25,7 +25,7 @@ def play():
         elif level == "hard":
             max_length = 45
         else:
-            print("Invalid input. Please try again.")
+            print("\033[31mInvalid input. Please try again.\033[0m")
             continue
         word = get_word(max_length)
         word_completion = "_" * len(word)
