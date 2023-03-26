@@ -1,5 +1,8 @@
 ## Hangman Game
 
+
+```python
+
 888                                                           
 888                                                           
 888                                                           
@@ -10,7 +13,9 @@
 888  888"Y888888888  888 "Y88888888  888  888"Y888888888  888 
                              888                              
                         Y8b d88P                              
-                         "Y88P"        
+                         "Y88P"  
+
+```
 
 This is a console-based Hangman game written in Python. The game randomly selects a word from the English dictionary and the player has to guess the word by suggesting letters or the complete word. The player has six tries to guess the word. For each incorrect guess, a part of the hangman figure is drawn. If the player is unable to guess the word within six tries, the game ends and the word is revealed.
 
