@@ -57,7 +57,7 @@ This function selects a random word from the English dictionary and returns it i
 This function takes the number of tries as input and returns the ASCII art for the corresponding state of the hangman.
 
 - play()
-This is the main function that runs the game. It initializes the game by selecting a random word, setting the word completion status to underscores, and initializing the number of tries to six. It then prompts the player to guess a letter or word and continues until the player guesses the word correctly or runs out of tries.
+This is the main function that runs the game. It initializes the game by selecting a random word depending on the difficulty selected by the user, setting the word completion status to underscores, and initializing the number of tries to six. It then prompts the player to guess a letter or word and continues until the player guesses the word correctly or runs out of tries.
 
 - main()
 This function calls the play() function to start the game.
