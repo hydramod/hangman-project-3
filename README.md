@@ -47,13 +47,17 @@ This function calls the play() function to start the game.
 
 ## Game Testing
 
+Initiatiing the Test class to run the followinf test cases
+
+```python
+class Test(unittest.TestCase):
+```
+
 1. Unit test the "get_word" function to ensure it returns a valid word in uppercase letters from the nltk corpus.
 
 - This test can be passed by verifying that the output of the "get_word" function is a string of uppercase letters that is a valid English word in the nltk corpus. We can use the following code to perform this test:
 
 ```python
-class TestGetWord(unittest.TestCase):
-
     def setUp(self):
         nltk.download('words')
         self.english_words = set(words.words())
