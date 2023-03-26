@@ -52,7 +52,7 @@ Run the following command to start the tests:
 python tests.py
 ```
 
-Initiatiing the Test class to run the followinf test cases
+Initiatiing the Test class to run the following test cases
 
 ```python
 class Test(unittest.TestCase):
