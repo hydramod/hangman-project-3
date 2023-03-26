@@ -49,7 +49,7 @@ This function calls the play() function to start the game.
 
 Run the following command to start the tests:
 ```
-python tests.py
+python -m unittest tests.py
 ```
 
 Initiatiing the Test class to run the following test cases
@@ -206,3 +206,18 @@ This test compares the output of the "display_hangman" function at each stage to
 8. Test the entire code by running it and playing the game to ensure it functions correctly and the game is enjoyable.
 
 - To test the entire code by running it and playing the game, we can manually play the game and verify that it functions correctly and is enjoyable.
+
+Results for the automated and manual test have passed as expected, however on initial start of the unittest, the first run fails, this is due to nltk test first downloading the dictionary. Upon the second run All automated test pass with no issue. The game functions and plays as expected.
+
+![Hangman test](/docs/images/tests.png)
+
+# Deployment
+
+
+
+# Credits
+
+- Documentaion on the [unittest framework](https://docs.python.org/3/library/unittest.html)
+- Inspiration for [ASCII art](https://codegolf.stackexchange.com/questions/135936/ascii-hangman-in-progress)
+- Inspration for this project from [Kylie Ying](https://www.youtube.com/watch?v=cJJTnI22IF8)
+- Thank you google for everything else.
