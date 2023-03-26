@@ -64,16 +64,15 @@ This function calls the play() function to start the game.
 
 ## Game Testing
 
-- Test requirements
-The following modules are required to run this code:
+Test requirements
+The following modules are required to run the test code:
 
 - unittest
 - io
 - nltk
 - nltk.corpus
 - unittest.mock
-
-Note: The words corpus from the nltk library also needs to be downloaded before running the code.
+- The words corpus from the nltk library also needs to be downloaded before running the code.
 
 Run the following command to start the tests:
 ```
