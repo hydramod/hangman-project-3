@@ -223,6 +223,13 @@ Results for the automated and manual test have passed as expected, however on in
 
 ![Hangman test](/docs/images/tests.png)
 
+# Technologies
+
+- Python for functionality and game logic
+- Developed using Visual Studio Code IDE
+- Source code hosted on GitHub, deployed with Heroku
+- Git used for code management
+
 # Deployment
 
 The game was uploaded to a cloud platform called Heroku. To do this, a new application was created and named in the settings tab.
