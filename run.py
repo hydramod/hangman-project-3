@@ -23,7 +23,7 @@ def play():
         guessed_letters = []
         guessed_words = []
         tries = 6
-        print("888                                                            ")
+        print("\033[33m888                                                            ")
         print("888                                                            ")
         print("888                                                            ")
         print("88888b.  8888b. 88888b.  .d88b. 88888b.d88b.  8888b. 88888b.  ")
@@ -33,7 +33,7 @@ def play():
         print("888  888\"Y888888888  888 \"Y88888888  888  888\"Y888888888  888 ")
         print("                             888                              ")
         print("                        Y8b d88P                              ")
-        print("                         \"Y88P\"                               ")
+        print("                         \"Y88P\"                               \033[0m")
         print("\n")
         print("Let's play Hangman!")
         print(display_hangman(tries))
@@ -46,13 +46,13 @@ def play():
                 return
             if len(guess) == 1 and guess.isalpha():
                 if guess in guessed_letters:
-                    print("You already guessed the letter", guess)
+                    print("\033[36mYou already guessed the letter", guess,"\033[0m")
                 elif guess not in word:
-                    print(guess, "is not in the word.")
+                    print("\033[31m" + guess + " is not in the word." + "\033[0m")
                     tries -= 1
                     guessed_letters.append(guess)
                 else:
-                    print("Good job,", guess, "is in the word!")
+                    print("\033[32mGood job,", guess, "is in the word!\033[0m")
                     guessed_letters.append(guess)
                     word_as_list = list(word_completion)
                     indices = [i for i, letter in enumerate(word) if letter == guess]
@@ -63,9 +63,9 @@ def play():
                         guessed = True
             elif len(guess) == len(word) and guess.isalpha():
                 if guess in guessed_words:
-                    print("You already guessed the word", guess)
+                    print("\033[36mYou already guessed the word", guess,"\033[0m")
                 elif guess != word:
-                    print(guess, "is not the word.")
+                    print("\033[91m" + guess + " is not the word." + "\033[0m")
                     tries -= 1
                     guessed_words.append(guess)
                 else:
@@ -74,10 +74,10 @@ def play():
             else:
                 print("Not a valid guess.")
             print(display_hangman(tries))
-            print(word_completion)
+            print("\033[32m" + word_completion + "\033[0m")
             print("\n")
         if guessed:
-            print("Congratulations, you guessed the word! You win!")
+            print("\033[33mCongratulations, you guessed the word! You win!\033[0m")
             play_again_input = input("Would you like to play again? (Y/N)").upper()
             while play_again_input != 'Y' and play_again_input != 'N':
                 play_again_input = input("Please enter either Y or N.").upper()
@@ -86,7 +86,7 @@ def play():
             else:
                 play_again = False
         else:
-            print("Sorry, you ran out of tries. The word was " + word + ".")
+            print("\033[31mSorry, you ran out of tries. The word was " + word + ".\033[0m")
             play_again_input = input("Would you like to play again? (Y/N)").upper()
             while play_again_input != 'Y' and play_again_input != 'N':
                 play_again_input = input("Please enter either Y or N.").upper()
