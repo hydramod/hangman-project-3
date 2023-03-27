@@ -111,8 +111,8 @@ class Test(unittest.TestCase):
 
 ```python
     def setUp(self):
-        nltk.download('words')
-        self.english_words = set(words.words())
+        nltk.download('wordnet')
+        self.english_words = set(wordnet.words())
 
     def test_get_word_returns_valid_word_in_uppercase(self):
         word = get_word()
@@ -121,7 +121,7 @@ class Test(unittest.TestCase):
         self.assertIn(word.lower(), self.english_words)
 
     def tearDown(self):
-        nltk.download('words', quiet=True)
+        nltk.download('wordnet', quiet=True)
 ```
 In this test, we first download the English words from the nltk corpus in the setUp method. We then define the test_get_word_returns_valid_word_in_uppercase method, which calls the get_word function and verifies that the returned word is a string of uppercase letters that is a valid English word in the nltk corpus. We use the isinstance function to verify that the returned word is a string, the isupper method to verify that it is in uppercase letters, and the assertIn method to verify that the lowercase version of the word is in the set of English words. We also use the tearDown method to clean up after the test, by downloading the nltk corpus again with the quiet argument set to True to suppress any output.
 
