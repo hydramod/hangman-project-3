@@ -6,6 +6,26 @@ from nltk.corpus import words
 nltk.download('words')
 english_words = words.words()
 
+# function to select difficulty level
+def select_difficulty_level():
+    print("Select difficulty level:")
+    print("1. \033[97mEasy\033[0m")
+    print("2. \033[33mMedium\033[0m")
+    print("2. \033[38;5;208mHard\033[0m")
+    print("4. \033[31mExpert\033[0m")
+    level = int(input("Enter your choice (1-4): "))
+    if level == 1:
+        return 5
+    elif level == 2:
+        return 10
+    elif level == 3:
+        return 15
+    elif level == 4:
+        return 45
+    else:
+        print("\033[31mInvalid input. Please try again.\033[0m")
+        return None
+
 # function to choose a random word
 def get_word(max_length):
     word = ""
@@ -17,15 +37,8 @@ def get_word(max_length):
 def play():
     play_again = True
     while play_again:
-        level = input("Select difficulty level (\033[33mEasy\033[0m, \033[38;5;208mMedium\033[0m, \033[31mHard\033[0m): ").lower()
-        if level == "easy":
-            max_length = 5
-        elif level == "medium":
-            max_length = 15
-        elif level == "hard":
-            max_length = 45
-        else:
-            print("\033[31mInvalid input. Please try again.\033[0m")
+        max_length = select_difficulty_level()
+        if max_length is None:
             continue
         word = get_word(max_length)
         word_completion = "_" * len(word)
