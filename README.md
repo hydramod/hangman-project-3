@@ -230,6 +230,10 @@ Results for the automated and manual test have passed as expected, however on in
 
 ## - Manual Testing
 
+1. Test the "select_difficulty_level" function with valid inputs to ensure it correctly initializes the game according to selected difficulty.
+
+![Hangman select difficulty](/docs/images/difficulty.png)
+
 1. Test the "play" function with valid inputs to ensure it correctly initializes the game and allows the user to input valid guesses for both letters and words until they either win or lose.
 
 ![Hangman start](/docs/images/start.png)
