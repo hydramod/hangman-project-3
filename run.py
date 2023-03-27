@@ -32,7 +32,7 @@ def select_difficulty_level():
     level = int(input("Enter your choice (1-4): "))
     # Depending on the user's choice of difficulty level, sets the number of hint calls allowed and the number of guesses.
     if level == 1:
-        hint_calls_allowed = 1
+        hint_calls_allowed = 2
         return 5, hint_calls_allowed
     elif level == 2:
         hint_calls_allowed = 2
@@ -82,6 +82,8 @@ def play():
         tries = 6
         # print the starting message and the current hangman display
         print("Let's play Hangman!")
+        print("Letters: " + str(len(word)))
+        print("Type # for a hint, you have",hint_calls_allowed,"left!" )
         print(display_hangman(tries))
         # print the current state of the word (with "" placeholders)
         print(word_completion)
@@ -95,7 +97,7 @@ def play():
                 # if the user cancels the game (e.g., by pressing Ctrl+C), exit the loop and return from the function
                 return
             # if the user wants a hint, and there are hints remaining, call the hint function and continue the loop
-            if guess == "HINT":
+            if guess == "#":
                 if hint_calls_allowed > 0:
                     hint(word)
                     hint_calls_allowed -= 1
