@@ -76,6 +76,8 @@ This function calls the play() function to start the game.
 
 ## Game Testing
 
+## - Automated Testing
+
 Test requirements
 The following modules are required to run the test code:
 
@@ -199,31 +201,7 @@ def test_display_hangman(self):
 ```
 This test compares the output of the "display_hangman" function at each stage to the expected ASCII art representation of the hangman.
 
-3. Test the "play" function with valid inputs to ensure it correctly initializes the game and allows the user to input valid guesses for both letters and words until they either win or lose.
-
-![Hangman start](/docs/images/start.png)
-
-- This test can be passed by manually playing the game and verifying that it initializes correctly, accepts valid guesses for both letters and words, and correctly determines whether the user has won or lost the game. This test cannot be fully automated as it requires user input.
-
-4. Test the "play" function with invalid inputs to ensure it correctly handles and displays error messages for invalid guesses.
-
-![Hangman input not valid](/docs/images/not%20valid.png)
-
-- The "play" function was tested by inputting invalid characters (such as numbers, symbols, or non-English letters) as guesses for both letters and words. The function handled the input errors correctly by displaying a message informing the user of the invalid input and prompting them to try again with a valid guess.
-
-5. Test the "play" function by intentionally losing the game to ensure it correctly displays the word and prompts the user to play again.
-
-![Hangman lose](/docs/images/lose.png)
-
-- To test the "play" function by intentionally losing the game, we can set the number of maximum incorrect guesses to 1 and then guess an incorrect letter to trigger the game over condition. We can then verify that the function correctly displays the word and prompts the user to play again.
-
-6. Test the "play" function by intentionally winning the game to ensure it correctly prompts the user to play again.
-
-![Hangman win](/docs/images/win.png)
-
-- To test the "play" function by intentionally winning the game, we can set the maximum number of incorrect guesses to a large number (e.g., 10) and then guess all the correct letters in the word to trigger the win condition. We can then verify that the function correctly prompts the user to play again. 
-
-7. Test the "main" function to ensure it correctly calls the "play" function when executed.
+3. Test the "main" function to ensure it correctly calls the "play" function when executed.
 
 - To test the "main" function, we can use the unittest framework to mock the "play" function and then verify that the "play" function is called when the "main" function is executed. We can use the following code to perform this test:
 
@@ -242,13 +220,39 @@ This test compares the output of the "display_hangman" function at each stage to
          mock_play.assert_called()
 ```
 
-8. Test the entire code by running it and playing the game to ensure it functions correctly and the game is enjoyable.
+4. Test the entire code by running it and playing the game to ensure it functions correctly and the game is enjoyable.
 
 - To test the entire code by running it and playing the game, we can manually play the game and verify that it functions correctly and is enjoyable.
 
 Results for the automated and manual test have passed as expected, however on initial start of the unittest, the first run fails, this is due to nltk test first downloading the dictionary. Upon the second run All automated test pass with no issue. The game functions and plays as expected.
 
 ![Hangman test](/docs/images/tests.png)
+
+## - Manual Testing
+
+1. Test the "play" function with valid inputs to ensure it correctly initializes the game and allows the user to input valid guesses for both letters and words until they either win or lose.
+
+![Hangman start](/docs/images/start.png)
+
+- This test can be passed by manually playing the game and verifying that it initializes correctly, accepts valid guesses for both letters and words, and correctly determines whether the user has won or lost the game. This test cannot be fully automated as it requires user input.
+
+2. Test the "play" function with invalid inputs to ensure it correctly handles and displays error messages for invalid guesses.
+
+![Hangman input not valid](/docs/images/not%20valid.png)
+
+- The "play" function was tested by inputting invalid characters (such as numbers, symbols, or non-English letters) as guesses for both letters and words. The function handled the input errors correctly by displaying a message informing the user of the invalid input and prompting them to try again with a valid guess.
+
+3. Test the "play" function by intentionally losing the game to ensure it correctly displays the word and prompts the user to play again.
+
+![Hangman lose](/docs/images/lose.png)
+
+- To test the "play" function by intentionally losing the game, we can set the number of maximum incorrect guesses to 1 and then guess an incorrect letter to trigger the game over condition. We can then verify that the function correctly displays the word and prompts the user to play again.
+
+4. Test the "play" function by intentionally winning the game to ensure it correctly prompts the user to play again.
+
+![Hangman win](/docs/images/win.png)
+
+- To test the "play" function by intentionally winning the game, we can set the maximum number of incorrect guesses to a large number (e.g., 10) and then guess all the correct letters in the word to trigger the win condition. We can then verify that the function correctly prompts the user to play again. 
 
 # Technologies
 
