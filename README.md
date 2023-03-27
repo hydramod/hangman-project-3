@@ -50,14 +50,26 @@ The player can choose to play again or exit the game.
 
 ## Function details
 
-- get_word()
-This function selects a random word from the English dictionary and returns it in uppercase.
+- nltk.download('words')
+Downloads the words corpus from the Natural Language Toolkit (nltk) library.
+
+- english_words = words.words()
+Retrieves all words in the downloaded corpus and stores them in a variable.
+
+- select_difficulty_level()
+Function prompts the user to select a difficulty level and returns the maximum number of characters allowed for the word, based on the user's input.
+
+- get_word(max_length)
+This function selects a random word depending on the max length set by the difficulty level from the English dictionary and returns it in uppercase.
 
 - display_hangman(tries)
 This function takes the number of tries as input and returns the ASCII art for the corresponding state of the hangman.
 
 - play()
 This is the main function that runs the game. It initializes the game by selecting a random word depending on the difficulty selected by the user, setting the word completion status to underscores, and initializing the number of tries to six. It then prompts the player to guess a letter or word and continues until the player guesses the word correctly or runs out of tries.
+
+- play_again_input() 
+Function prompts the user to play again and returns True if the user enters 'Y' or False if the user enters 'N'.
 
 - main()
 This function calls the play() function to start the game.
