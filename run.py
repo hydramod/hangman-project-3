@@ -80,7 +80,7 @@ def play():
         guessed_words = []
         # set the number of tries to 6
         tries = 6
-        # print the starting message and the current hangman display
+        # print the starting message, the current hangman display, word length and number of hints
         print("Let's play Hangman!")
         print("Letters: " + str(len(word)))
         print("Type # for a hint, you have",hint_calls_allowed,"left!" )
