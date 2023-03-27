@@ -28,6 +28,11 @@ The following modules are required to run this code:
 - nltk.corpus
 - The words corpus from the nltk library also needs to be downloaded before running the code.
 
+Run the following command to install requirements:
+```
+pip install -r requirements.txt
+```
+
 ## How to run the game
 
 Clone the repository to your local machine.
@@ -52,9 +57,6 @@ The player can choose to play again or exit the game.
 
 - nltk.download('wordnet')
 Downloads the words corpus from the Natural Language Toolkit (nltk) library.
-
-- english_words = list(wordnet.words())
-Retrieves all words in the downloaded corpus and stores them in a variable.
 
 - title() 
 This function is a simple helper function that prints the title of the game
