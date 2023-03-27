@@ -1,30 +1,49 @@
 import random
 import nltk
-from nltk.corpus import words
+from nltk.corpus import wordnet
 
-#download words from nltk corpus
-nltk.download('words')
-english_words = words.words()
+#download words and definitions from nltk corpus
+nltk.download('wordnet')
+english_words = list(wordnet.words())
+
+#function to print the title
+def title():
+    print("\033[33m888                                                            ")
+    print("888                                                            ")
+    print("888                                                            ")
+    print("88888b.  8888b. 88888b.  .d88b. 88888b.d88b.  8888b. 88888b.  ")
+    print("888 \"88b    \"88b888 \"88bd88P\"88b888 \"888 \"88b    \"88b888 \"88b ")
+    print("888  888.d888888888  888888  888888  888  888.d888888888  888 ")
+    print("888  888888  888888  888Y88b 888888  888  888888  888888  888 ")
+    print("888  888\"Y888888888  888 \"Y88888888  888  888\"Y888888888  888 ")
+    print("                             888                              ")
+    print("                        Y8b d88P                              ")
+    print("                         \"Y88P\"                               \033[0m")
+    print("\n")
 
 # function to select difficulty level
 def select_difficulty_level():
     print("Select difficulty level:")
     print("1. \033[97mEasy\033[0m")
     print("2. \033[33mMedium\033[0m")
-    print("2. \033[38;5;208mHard\033[0m")
+    print("3. \033[38;5;208mHard\033[0m")
     print("4. \033[31mExpert\033[0m")
     level = int(input("Enter your choice (1-4): "))
     if level == 1:
-        return 5
+        hint_calls_allowed = 1
+        return 5, hint_calls_allowed
     elif level == 2:
-        return 10
+        hint_calls_allowed = 2
+        return 10, hint_calls_allowed
     elif level == 3:
-        return 15
+        hint_calls_allowed = 4
+        return 15, hint_calls_allowed
     elif level == 4:
-        return 45
+        hint_calls_allowed = 8
+        return 45, hint_calls_allowed
     else:
         print("\033[31mInvalid input. Please try again.\033[0m")
-        return None
+        return None, None
 
 # function to choose a random word
 def get_word(max_length):
@@ -37,8 +56,8 @@ def get_word(max_length):
 def play():
     play_again = True
     while play_again:
-        max_length = select_difficulty_level()
-        if max_length is None:
+        max_length, hint_calls_allowed = select_difficulty_level()
+        if max_length is None or hint_calls_allowed is None:
             continue
         word = get_word(max_length)
         word_completion = "_" * len(word)
@@ -46,18 +65,6 @@ def play():
         guessed_letters = []
         guessed_words = []
         tries = 6
-        print("\033[33m888                                                            ")
-        print("888                                                            ")
-        print("888                                                            ")
-        print("88888b.  8888b. 88888b.  .d88b. 88888b.d88b.  8888b. 88888b.  ")
-        print("888 \"88b    \"88b888 \"88bd88P\"88b888 \"888 \"88b    \"88b888 \"88b ")
-        print("888  888.d888888888  888888  888888  888  888.d888888888  888 ")
-        print("888  888888  888888  888Y88b 888888  888  888888  888888  888 ")
-        print("888  888\"Y888888888  888 \"Y88888888  888  888\"Y888888888  888 ")
-        print("                             888                              ")
-        print("                        Y8b d88P                              ")
-        print("                         \"Y88P\"                               \033[0m")
-        print("\n")
         print("Let's play Hangman!")
         print(display_hangman(tries))
         print(word_completion)
@@ -67,6 +74,13 @@ def play():
                 guess = input("Please guess a letter or word: ").upper()
             except StopIteration:
                 return
+            if guess == "HINT":
+                if hint_calls_allowed > 0:
+                    hint(word)
+                    hint_calls_allowed -= 1
+                else:
+                    print("\033[31mSorry, no hints remaining.\033[0m")
+                continue
             if len(guess) == 1 and guess.isalpha():
                 if guess in guessed_letters:
                     print("\033[36mYou already guessed the letter", guess,"\033[0m")
@@ -105,6 +119,17 @@ def play():
             print("\033[31mSorry, you ran out of tries. The word was " + word + ".\033[0m")
         play_again = play_again_input()
     print("Thanks for playing Hangman!")
+
+#function to handle hints
+def hint(word):
+    synset = wordnet.synsets(word)
+    if synset:
+        definition = synset[0].definition()
+        print("Definition:", definition)
+    else:
+        print("Sorry, no definition found for this word.")
+    random_index = random.randint(0, len(word)-1)
+    print("Random letter in the word:", word[random_index])
 
 #function to prompt user to play again
 def play_again_input():
@@ -190,6 +215,7 @@ def display_hangman(tries):
 
 # main function to start the game
 def main():
+    title()
     play()
 
 # call the main function
