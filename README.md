@@ -216,7 +216,7 @@ This test compares the output of the "display_hangman" function at each stage to
 - To test the "main" function, we can use the unittest framework to mock the "play" function and then verify that the "play" function is called when the "main" function is executed. We can use the following code to perform this test:
 
 ```python
-@patch('builtins.input', side_effect=['A', 'E', 'O', 'I', 'U'])
+@patch('builtins.input', side_effect=['1', '2', '3', '4'])
    def test_play(self, mock_input):
       with patch('sys.stdout', new_callable=io.StringIO) as mock_stdout:
          play()

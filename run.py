@@ -106,6 +106,7 @@ def play():
         play_again = play_again_input()
     print("Thanks for playing Hangman!")
 
+#function to prompt user to play again
 def play_again_input():
     play_again_input = input("Would you like to play again? (Y/N)").upper()
     while play_again_input != 'Y' and play_again_input != 'N':

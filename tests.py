@@ -14,7 +14,7 @@ class Test(unittest.TestCase):
       self.english_words = set(words.words())
 
    def test_get_word_returns_valid_word_in_uppercase(self):
-      word = get_word()
+      word = get_word(5)
       self.assertIsInstance(word, str)
       self.assertTrue(word.isupper())
       self.assertIn(word.lower(), self.english_words)
@@ -97,7 +97,7 @@ class Test(unittest.TestCase):
       for tries in range(len(expected)):
          assert display_hangman(tries) == expected[tries]
 
-   @patch('builtins.input', side_effect=['A', 'E', 'O', 'I', 'U'])
+   @patch('builtins.input', side_effect=['1', '2', '3', '4'])
    def test_play(self, mock_input):
       with patch('sys.stdout', new_callable=io.StringIO) as mock_stdout:
          play()
