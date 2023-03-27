@@ -234,6 +234,8 @@ Results for the automated and manual test have passed as expected, however on in
 
 ![Hangman select difficulty](/docs/images/difficulty.png)
 
+- This test can be passed by manually playing the game and verifying that it, accepts valid numeric inputs, and correctly initializes the game according to the difficulty selected.
+
 1. Test the "play" function with valid inputs to ensure it correctly initializes the game and allows the user to input valid guesses for both letters and words until they either win or lose.
 
 ![Hangman start](/docs/images/start.png)
