@@ -294,14 +294,11 @@ def save_scores(scores):
 def add_score(word):
     # Get player name and score
     name = input("Enter your name: ")
-    score = len(word)
-    
+    score = len(word) 
     # Load leaderboard scores
     scores = load_scores()
-    
     # Flag to check if player already exists
     found_player = False
-    
     # Iterate through scores to check if player already exists
     for s in scores:
         if s['Name'].lower() == name.lower():
@@ -318,7 +315,6 @@ def add_score(word):
                 print(f"Did not add score for {name}.")
             # Exit loop if player is found
             break
-    
     # If player is not found, add new score to leaderboard
     if not found_player:
         new_score = {'Name': name, 'Score': score}
@@ -366,10 +362,8 @@ def leaderboard_menu():
         print("1. View leaderboard")
         print("2. Delete a score")
         print("3. Main Menu")
-
         # Get the user's choice
         choice = input("Enter your choice (1-3): ")
-
         # Process the user's choice
         if choice == '1':
             # Clear the screen and display the leaderboard
