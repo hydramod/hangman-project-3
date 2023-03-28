@@ -278,14 +278,14 @@ def display_hangman(tries):
 
 # function to load scores from Google Sheets
 def load_scores():
-    # clear all existing records in the Google Sheets
-    LEADERBOARD.clear()
     # retrieve all records from Google Sheets
     scores = LEADERBOARD.get_all_records()
     return scores
 
 # function to save scores to Google Sheets
 def save_scores(scores):
+    # clear all existing records in the Google Sheets
+    LEADERBOARD.clear()
     # insert header row at the top of the sheet
     LEADERBOARD.insert_row(['Rank', 'Name', 'Score'], 1)
     # loop through each score and insert it as a new row in the Google Sheets
@@ -296,7 +296,7 @@ def save_scores(scores):
 def add_score(word):
     # Get player name and score
     name = input("Enter your name: ")
-    score = len(word) 
+    score = len(word)
     # Load leaderboard scores
     scores = load_scores()
     # Flag to check if player already exists
@@ -305,17 +305,10 @@ def add_score(word):
     for s in scores:
         if s['Name'].lower() == name.lower():
             found_player = True
-            # If player exists, ask if user wants to add points to existing score
-            choice = input(f"Player {name} already has a score of {s['Score']}. Do you want to add {score} points to the existing score? (Y/N)")
-            if choice.lower() == 'y':
-                # If user selects yes, add points to existing score and save scores
-                s['Score'] += score
-                save_scores(scores)
-                print(f"Added {score} points to {name}. New score: {s['Score']}")
-            else:
-                # If user selects no, do not add points to score and exit function
-                print(f"Did not add score for {name}.")
-            # Exit loop if player is found
+            # If player exists, add points to existing score
+            s['Score'] += score
+            save_scores(scores)
+            print(f"Added {score} points to {name}. New score: {s['Score']}")
             break
     # If player is not found, add new score to leaderboard
     if not found_player:
