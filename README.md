@@ -79,49 +79,49 @@ The player can choose to play again or exit the game.
 
 ## Function details
 
-- nltk.download('wordnet')
+- nltk.download('wordnet'):
 Downloads the words corpus from the Natural Language Toolkit (nltk) library.
 
-- title() 
+- title():
 This function is a simple helper function that prints the title of the game
 
-- select_difficulty_level()
+- select_difficulty_level():
 Function prompts the user to select a difficulty level and returns the maximum number of characters and hints allowed for the word, based on the user's input.
 
-- get_word(max_length)
+- get_word(max_length):
 This function selects a random word depending on the max length set by the difficulty level from the English dictionary and returns it in uppercase.
 
-- display_hangman(tries)
+- display_hangman(tries):
 This function takes the number of tries as input and returns the ASCII art for the corresponding state of the hangman.
 
-- load_scores()
+- load_scores():
 This function retrieves all records from Google Sheets and returns them as a list of dictionaries.
 
-- save_scores(scores)
+- save_scores(scores):
 This function clears all existing records in the Google Sheets, inserts a header row at the top of the sheet, and loops through each score to insert it as a new row in the Google Sheets.
 
-- add_score(word)
+- add_score(word):
 This function prompts the user to enter their name, calculates their score based on the length of the input word, loads the leaderboard scores, checks if the player already exists, and either adds points to their existing score or adds a new score to the leaderboard.
 
-- view_leaderboard()
+- view_leaderboard():
 This function loads the scores from the file, checks if there are any scores, and if there are, prints the leaderboard header and loops through the scores to print each one.
 
-- delete_score()
+- delete_score():
 This function prompts the user to enter the name of the player to delete, loads the scores from the file, creates a new list of scores without the specified player, saves the updated scores to the file, and informs the user that the player was deleted.
 
-- leaderboard_menu()
+- leaderboard_menu():
 This function displays a menu of options for the user to choose from (view leaderboard, delete score, or return to the main menu) and processes the user's choice by calling the corresponding function.
 
-- play()
+- play():
 This is the main function that runs the game. It initializes the game by selecting a random word depending on the difficulty selected by the user, setting the word completion status to underscores, and initializing the number of tries to six. It then prompts the player to guess a letter or word and continues until the player guesses the word correctly or runs out of tries.
 
-- hint(word)
+- hint(word):
 Function to provide a hint for the hangman game. It reveals a random letter from the word that hasn't been guessed yet along with the word definition.
 
-- play_again_input() 
+- play_again_input():
 Function prompts the user to play again and returns True if the user enters 'Y' or False if the user enters 'N'.
 
-- main()
+- main():
 This function calls the play() function to start the game.
 
 ## Game Testing
