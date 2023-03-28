@@ -278,6 +278,8 @@ def display_hangman(tries):
 
 # function to load scores from Google Sheets
 def load_scores():
+    # clear all existing records in the Google Sheets
+    LEADERBOARD.clear()
     # retrieve all records from Google Sheets
     scores = LEADERBOARD.get_all_records()
     return scores
