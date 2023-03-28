@@ -107,7 +107,7 @@ class Test(unittest.TestCase):
       for tries in range(len(expected)):
          assert display_hangman(tries) == expected[tries]
 
-   @patch('builtins.input', side_effect=['1', '2', '3', '4'])
+   @patch('builtins.input', side_effect=['1'])
    def test_play(self, mock_input):
       # Test that play() prompts the user to play the game and calls the function to start the game
       with patch('sys.stdout', new_callable=io.StringIO) as mock_stdout:
@@ -117,11 +117,13 @@ class Test(unittest.TestCase):
          # check that prompt to play game is printed to stdout
          self.assertIn("Let's play Hangman!", output)
 
-   @patch('builtins.input', side_effect=['y', 'n'])
+   @patch('builtins.input', side_effect=['3']) # changed the value to '3'
    def test_main(self, mock_input):
       # Test that main() prompts the user to play the game and calls the function to start the game
-      with patch('run.play') as mock_play:
-         # patch the play() function so that it does not execute during testing
+      with patch('sys.stdout', new_callable=io.StringIO) as mock_stdout:
+         # patch the main() function so that it does not execute during testing
          main()
-         # Assert that the play() function has been called
-         mock_play.assert_called()
+         # get the value of stdout
+         output = mock_stdout.getvalue()
+         # Assert that the main() function has been called
+         self.assertIn("1. Start a new game", output)

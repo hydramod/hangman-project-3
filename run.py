@@ -1,10 +1,19 @@
 import random
 import nltk
 from nltk.corpus import wordnet
+import gspread
+from google.oauth2.service_account import Credentials
 
 #download words and definitions from nltk corpus
 nltk.download('wordnet')
 english_words = list(wordnet.words())
+
+SCOPE = ["https://www.googleapis.com/auth/spreadsheets","https://www.googleapis.com/auth/drive.file","https://www.googleapis.com/auth/drive"]
+CREDS = Credentials.from_service_account_file('creds.json')
+SCOPED_CREDS = CREDS.with_scopes(SCOPE)
+CLIENT = gspread.authorize(SCOPED_CREDS)
+SHEET = CLIENT.open('Hangman')
+LEADERBOARD = SHEET.worksheet('Leaderboard')
 
 #function to print the title
 def title():
@@ -152,6 +161,7 @@ def play():
         if guessed:
             # If the player has guessed the word
             print("\033[33mCongratulations, you guessed the word! You win!\033[0m")
+            add_score(word)
         else:
             # If the player has run out of tries
             print("\033[31mSorry, you ran out of tries. The word was " + word + ".\033[0m")
@@ -262,10 +272,84 @@ def display_hangman(tries):
             ]
     return stages[tries]
 
+def load_scores():
+    scores = LEADERBOARD.get_all_records()
+    return scores
+
+def save_scores(scores):
+    LEADERBOARD.clear()
+    LEADERBOARD.insert_row(['Rank', 'Name', 'Score'], 1)
+    for i, score in enumerate(scores, start=2):
+        LEADERBOARD.insert_row([i - 1, score['Name'], score['Score']], i)
+
+def add_score(word):
+    name = input("Enter your name: ")
+    score = len(word)
+    scores = load_scores()
+    new_score = {'Name': name, 'Score': score}
+    scores.append(new_score)
+    scores = sorted(scores, key=lambda k: int(k['Score']), reverse=True)
+    save_scores(scores)
+    print(f"Added score: {name} - {score}")
+
+def view_leaderboard():
+    scores = load_scores()
+    if len(scores) == 0:
+        print("No scores found.")
+    else:
+        print("Rank\tName\tScore")
+        for i, score in enumerate(scores, start=1):
+            print(f"{i}\t{score['Name']}\t{score['Score']}")
+
+def delete_score():
+    name = input("Enter the name of the player to delete: ")
+    scores = load_scores()
+    updated_scores = [score for score in scores if name.lower() not in score['Name'].lower()]
+    if len(updated_scores) == len(scores):
+        print(f"No player with name '{name}' found.")
+    else:
+        save_scores(updated_scores)
+        print(f"Deleted player: {name}")
+
+def leaderboard_menu():
+    while True:
+        print("\nPick an option:")
+        print("1. View leaderboard")
+        print("2. Delete a score")
+        print("3. Main Menu")
+
+        choice = input("Enter your choice (1-4): ")
+
+        if choice == '1':
+            view_leaderboard()
+        elif choice == '2':
+            delete_score()
+        elif choice == '3':
+            main()            
+            break
+        else:
+            print("Invalid choice. Please enter a number between 1 and 4.")
+
 # main function to start the game
 def main():
     title()
-    play()
+    while True:
+        print("\nPick an option:")
+        print("1. Start a new game")
+        print("2. Leaderboard")
+        print("3. Quit")
+
+        choice = input("Enter your choice (1-3): ")
+
+        if choice == '1':
+            play()
+        elif choice == '2':
+            leaderboard_menu()
+        elif choice == '3':
+            print("Exiting...")
+            break
+        else:
+            print("Invalid choice. Please enter a number between 1 and 3.")
 
 # call the main function
 if __name__ == "__main__":
