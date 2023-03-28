@@ -1,4 +1,5 @@
 import random
+import os
 import nltk
 from nltk.corpus import wordnet
 import gspread
@@ -39,6 +40,7 @@ def select_difficulty_level():
     print("3. \033[38;5;208mHard\033[0m")
     print("4. \033[31mExpert\033[0m")
     level = int(input("Enter your choice (1-4): "))
+    os.system('clear')
     # Depending on the user's choice of difficulty level, sets the number of hint calls allowed and the number of guesses.
     if level == 1:
         hint_calls_allowed = 2
@@ -90,6 +92,7 @@ def play():
         # set the number of tries to 6
         tries = 6
         # print the starting message, the current hangman display, word length and number of hints
+        os.system('clear')
         print("Let's play Hangman!")
         print("Letters: " + str(len(word)))
         print("Type # for a hint, you have",hint_calls_allowed,"left!" )
@@ -167,6 +170,7 @@ def play():
             print("\033[31mSorry, you ran out of tries. The word was " + word + ".\033[0m")
         # Get input from the player to see if they want to play again.
         play_again = play_again_input()
+        os.system('clear') 
     # Print a message to thank the player for playing.
     print("Thanks for playing Hangman!")
 
@@ -321,19 +325,21 @@ def leaderboard_menu():
         choice = input("Enter your choice (1-4): ")
 
         if choice == '1':
+            os.system('clear')
             view_leaderboard()
         elif choice == '2':
+            os.system('clear')
             delete_score()
         elif choice == '3':
             main()            
             break
         else:
-            print("Invalid choice. Please enter a number between 1 and 4.")
+            print("Invalid choice. Please enter a number between 1 and 4.") 
 
 # main function to start the game
 def main():
     title()
-    while True:
+    while True: 
         print("\nPick an option:")
         print("1. Start a new game")
         print("2. Leaderboard")
@@ -342,8 +348,10 @@ def main():
         choice = input("Enter your choice (1-3): ")
 
         if choice == '1':
+            os.system('clear')
             play()
         elif choice == '2':
+            os.system('clear')
             leaderboard_menu()
         elif choice == '3':
             print("Exiting...")
