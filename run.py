@@ -276,87 +276,146 @@ def display_hangman(tries):
             ]
     return stages[tries]
 
+# function to load scores from Google Sheets
 def load_scores():
+    # retrieve all records from Google Sheets
     scores = LEADERBOARD.get_all_records()
     return scores
 
+# function to save scores to Google Sheets
 def save_scores(scores):
-    LEADERBOARD.clear()
+    # insert header row at the top of the sheet
     LEADERBOARD.insert_row(['Rank', 'Name', 'Score'], 1)
-    for i, score in enumerate(scores, start=2):
+    # loop through each score and insert it as a new row in the Google Sheets
+    for i, score in enumerate(scores, start=2):  
         LEADERBOARD.insert_row([i - 1, score['Name'], score['Score']], i)
 
+# Function to add score to leaderboard
 def add_score(word):
+    # Get player name and score
     name = input("Enter your name: ")
     score = len(word)
+    
+    # Load leaderboard scores
     scores = load_scores()
-    new_score = {'Name': name, 'Score': score}
-    scores.append(new_score)
-    scores = sorted(scores, key=lambda k: int(k['Score']), reverse=True)
-    save_scores(scores)
-    print(f"Added score: {name} - {score}")
+    
+    # Flag to check if player already exists
+    found_player = False
+    
+    # Iterate through scores to check if player already exists
+    for score in scores:
+        if score['Name'].lower() == name.lower():
+            found_player = True
+            # If player exists, ask if user wants to add points to existing score
+            choice = input(f"Player {name} already has a score of {score['Score']}. Do you want to add {score} points to the existing score? (Y/N)")
+            if choice.lower() == 'y':
+                # If user selects yes, add points to existing score and save scores
+                score['Score'] += score
+                save_scores(scores)
+                print(f"Added {score} points to {name}. New score: {score['Score']}")
+            else:
+                # If user selects no, do not add points to score and exit function
+                print(f"Did not add score for {name}.")
+            # Exit loop if player is found
+            break
+    
+    # If player is not found, add new score to leaderboard
+    if not found_player:
+        new_score = {'Name': name, 'Score': score}
+        scores.append(new_score)
+        scores = sorted(scores, key=lambda score_key: int(score_key['Score']), reverse=True)
+        save_scores(scores)
+        print(f"Added score: {name} - {score}")
 
+# View the leaderboard
 def view_leaderboard():
+    # Load the scores from the file
     scores = load_scores()
+    # If there are no scores, inform the user
     if len(scores) == 0:
         print("No scores found.")
     else:
+        # Print the leaderboard header
         print("Rank\tName\tScore")
+        # Loop through the scores and print each one
         for i, score in enumerate(scores, start=1):
             print(f"{i}\t{score['Name']}\t{score['Score']}")
 
+# Delete a score
 def delete_score():
+    # Get the name of the player to delete
     name = input("Enter the name of the player to delete: ")
+    # Load the scores from the file
     scores = load_scores()
+    # Create a new list of scores without the specified player
     updated_scores = [score for score in scores if name.lower() not in score['Name'].lower()]
+    # If the length of the updated list is the same as the original, the player was not found
     if len(updated_scores) == len(scores):
         print(f"No player with name '{name}' found.")
     else:
+        # Save the updated scores to the file
         save_scores(updated_scores)
+        # Inform the user that the player was deleted
         print(f"Deleted player: {name}")
 
+# Display the leaderboard menu
 def leaderboard_menu():
     while True:
+        # Display the menu options
         print("\nPick an option:")
         print("1. View leaderboard")
         print("2. Delete a score")
         print("3. Main Menu")
 
-        choice = input("Enter your choice (1-4): ")
+        # Get the user's choice
+        choice = input("Enter your choice (1-3): ")
 
+        # Process the user's choice
         if choice == '1':
+            # Clear the screen and display the leaderboard
             os.system('clear')
             view_leaderboard()
         elif choice == '2':
+            # Clear the screen and delete a score
             os.system('clear')
             delete_score()
         elif choice == '3':
+            # Return to the main menu
             main()            
             break
         else:
-            print("Invalid choice. Please enter a number between 1 and 4.") 
+            # Inform the user of an invalid choice
+            print("Invalid choice. Please enter a number between 1 and 3.") 
 
-# main function to start the game
+# Main function to start the game
 def main():
+    # Display the title screen
     title()
     while True: 
+        # Display the main menu options
         print("\nPick an option:")
         print("1. Start a new game")
         print("2. Leaderboard")
         print("3. Quit")
 
+        # Get the user's choice
         choice = input("Enter your choice (1-3): ")
 
+        # Process the user's choice
         if choice == '1':
+            # Clear the screen and start a new game
             os.system('clear')
             play()
         elif choice == '2':
+            # Clear the screen and display the leaderboard menu
             os.system('clear')
             leaderboard_menu()
         elif choice == '3':
+            # Quit the game
             print("Exiting...")
             break
         else:
+            # Inform the user of an invalid choice
             print("Invalid choice. Please enter a number between 1 and 3.")
 
 # call the main function
