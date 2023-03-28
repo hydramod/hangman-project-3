@@ -1,5 +1,4 @@
-## Hangman Game
-
+# Hangman Game
 
 ```python
 
@@ -126,7 +125,7 @@ This function calls the play() function to start the game.
 
 ## Game Testing
 
-## - Automated Testing
+### Automated Testing
 
 Test requirements
 The following modules are required to run the test code:
@@ -295,7 +294,7 @@ Results for the automated and manual test have passed as expected, however on in
 
 ![Hangman test](/docs/images/tests.png)
 
-## - Manual Testing
+### Manual Testing
 
 1. Test the "select_difficulty_level" function with valid inputs to ensure it correctly initializes the game according to selected difficulty.
 
@@ -303,38 +302,38 @@ Results for the automated and manual test have passed as expected, however on in
 
 - This test can be passed by manually playing the game and verifying that it, accepts valid numeric inputs, and correctly initializes the game according to the difficulty selected.
 
-1. Test the "play" function with valid inputs to ensure it correctly initializes the game and allows the user to input valid guesses for both letters and words until they either win or lose.
+2. Test the "play" function with valid inputs to ensure it correctly initializes the game and allows the user to input valid guesses for both letters and words until they either win or lose.
 
 ![Hangman start](/docs/images/start.png)
 
 - This test can be passed by manually playing the game and verifying that it initializes correctly, accepts valid guesses for both letters and words, and correctly determines whether the user has won or lost the game. This test cannot be fully automated as it requires user input.
 
-2. Test the "play" function with invalid inputs to ensure it correctly handles and displays error messages for invalid guesses.
+3. Test the "play" function with invalid inputs to ensure it correctly handles and displays error messages for invalid guesses.
 
 ![Hangman input not valid](/docs/images/not%20valid.png)
 
 - The "play" function was tested by inputting invalid characters (such as numbers, symbols, or non-English letters) as guesses for both letters and words. The function handled the input errors correctly by displaying a message informing the user of the invalid input and prompting them to try again with a valid guess.
 
-3. Test the "play" function by intentionally losing the game to ensure it correctly displays the word and prompts the user to play again.
+4. Test the "play" function by intentionally losing the game to ensure it correctly displays the word and prompts the user to play again.
 
 ![Hangman lose](/docs/images/lose.png)
 
 - To test the "play" function by intentionally losing the game, we can set the number of maximum incorrect guesses to 1 and then guess an incorrect letter to trigger the game over condition. We can then verify that the function correctly displays the word and prompts the user to play again.
 
-4. Test the "play" function by intentionally winning the game to ensure it correctly prompts the user to play again.
+5. Test the "play" function by intentionally winning the game to ensure it correctly prompts the user to play again.
 
 ![Hangman win](/docs/images/win.png)
 
 - To test the "play" function by intentionally winning the game, we can set the maximum number of incorrect guesses to a large number (e.g., 10) and then guess all the correct letters in the word to trigger the win condition. We can then verify that the function correctly prompts the user to play again. 
 
-# Technologies
+## Technologies
 
 - Python for functionality and game logic
 - Developed using Visual Studio Code IDE
 - Source code hosted on GitHub, deployed with Heroku
 - Git used for code management
 
-# Deployment
+## Deployment
 
 The game was uploaded to a cloud platform called Heroku. To do this, a new application was created and named in the settings tab.
 
@@ -344,7 +343,7 @@ To deploy the app, the "Deployment Method" was selected under the Deploy tab, an
 
 Here is the link to the app where it is currently deployed: https://hangman-ci-project-3.herokuapp.com
 
-# Credits
+## Credits
 
 - Documentaion on the [unittest framework](https://docs.python.org/3/library/unittest.html)
 - Documentation on the [Natural Languange Tool Kit](https://www.nltk.org/index.html#)
