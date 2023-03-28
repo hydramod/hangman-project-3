@@ -303,16 +303,16 @@ def add_score(word):
     found_player = False
     
     # Iterate through scores to check if player already exists
-    for score in scores:
-        if score['Name'].lower() == name.lower():
+    for s in scores:
+        if s['Name'].lower() == name.lower():
             found_player = True
             # If player exists, ask if user wants to add points to existing score
-            choice = input(f"Player {name} already has a score of {score['Score']}. Do you want to add {score} points to the existing score? (Y/N)")
+            choice = input(f"Player {name} already has a score of {s['Score']}. Do you want to add {score} points to the existing score? (Y/N)")
             if choice.lower() == 'y':
                 # If user selects yes, add points to existing score and save scores
-                score['Score'] += score
+                s['Score'] += score
                 save_scores(scores)
-                print(f"Added {score} points to {name}. New score: {score['Score']}")
+                print(f"Added {score} points to {name}. New score: {s['Score']}")
             else:
                 # If user selects no, do not add points to score and exit function
                 print(f"Did not add score for {name}.")
@@ -323,7 +323,7 @@ def add_score(word):
     if not found_player:
         new_score = {'Name': name, 'Score': score}
         scores.append(new_score)
-        scores = sorted(scores, key=lambda score_key: int(score_key['Score']), reverse=True)
+        scores = sorted(scores, key=lambda k: int(k['Score']), reverse=True)
         save_scores(scores)
         print(f"Added score: {name} - {score}")
 
