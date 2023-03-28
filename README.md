@@ -24,6 +24,7 @@ This is a console-based Hangman game written in Python. The game randomly select
 The following modules are required to run this code:
 
 - random
+- gspread
 - nltk
 - nltk.corpus
 - The words corpus from the nltk library also needs to be downloaded before running the code.
@@ -35,8 +36,31 @@ pip install -r requirements.txt
 
 ## How to run the game
 
-Clone the repository to your local machine.
-Open a terminal window and navigate to the project directory.
+1. Clone the repository to your local machine.
+2. Go to the Google Cloud Console: https://console.cloud.google.com/
+3. If you do not already have a Google Cloud Platform account, you will need to create one. If you do have an account, log in to the console.
+4. Once you are logged in, click on the project dropdown menu at the top of the screen and select "New Project".
+5. In the "New Project" dialog box, enter a name for your project and click "Create".
+6. Once your project has been created, you will be taken to the project dashboard. Click on the "APIs & Services" menu in the left sidebar and select "Dashboard".
+7. Click on the "+ ENABLE APIS AND SERVICES" button at the top of the page.
+8. Search for "Google Sheets API" and "Google Drive API" in the search bar and select them.
+9. Click the "Enable" button to enable both APIs for your project.
+10. Next, you will need to create credentials for your project. Click on "Create Credentials" and select "Service Account Key".
+11. Fill in the required fields for the service account, such as the service account name and role. Choose "JSON" as the key type and click "Create".
+12. Save the generated JSON file to your local computer and rename it as "creds.json". This file contains the private key for your service account.
+13. Finally, you can use the credentials and APIs to access your Google Sheets and Google Drive data through your project.
+14. Go to the Google Sheets page: https://docs.google.com/spreadsheets.
+15. Click the "Blank" button in the upper left corner under "Start a new spreadsheet".
+16. Rename the spreadsheet to "Hangman" by doub-clicking on the title in the upper left corner.
+17. Rename the default sheet to "Leaderboard" by double-clicking on the tab at the bottom and typing in the new name.
+18. Populate the first row with the necessary headers for your Leaderboard. (Rank, Name, Score)
+19. Click the "Share" button in the upper right corner of the page.
+20. In the "Share with people and groups" section, enter the email address of the google service account email from your credentials JSON you have downloaded to share the document with.
+21. Choose the level of access you want to grant "Can Edit".
+22. Click the "Send" button to share the document.
+23. Move the creds.json file into the root directory of the hangman game.
+24. Open a terminal window and navigate to the project directory.
+
 Run the following command to start the game:
 ```
 python run.py
@@ -69,6 +93,24 @@ This function selects a random word depending on the max length set by the diffi
 
 - display_hangman(tries)
 This function takes the number of tries as input and returns the ASCII art for the corresponding state of the hangman.
+
+- load_scores()
+This function retrieves all records from Google Sheets and returns them as a list of dictionaries.
+
+- save_scores(scores)
+This function clears all existing records in the Google Sheets, inserts a header row at the top of the sheet, and loops through each score to insert it as a new row in the Google Sheets.
+
+- add_score(word)
+This function prompts the user to enter their name, calculates their score based on the length of the input word, loads the leaderboard scores, checks if the player already exists, and either adds points to their existing score or adds a new score to the leaderboard.
+
+- view_leaderboard()
+This function loads the scores from the file, checks if there are any scores, and if there are, prints the leaderboard header and loops through the scores to print each one.
+
+- delete_score()
+This function prompts the user to enter the name of the player to delete, loads the scores from the file, creates a new list of scores without the specified player, saves the updated scores to the file, and informs the user that the player was deleted.
+
+- leaderboard_menu()
+This function displays a menu of options for the user to choose from (view leaderboard, delete score, or return to the main menu) and processes the user's choice by calling the corresponding function.
 
 - play()
 This is the main function that runs the game. It initializes the game by selecting a random word depending on the difficulty selected by the user, setting the word completion status to underscores, and initializing the number of tries to six. It then prompts the player to guess a letter or word and continues until the player guesses the word correctly or runs out of tries.
@@ -306,6 +348,7 @@ Here is the link to the app where it is currently deployed: https://hangman-ci-p
 
 - Documentaion on the [unittest framework](https://docs.python.org/3/library/unittest.html)
 - Documentation on the [Natural Languange Tool Kit](https://www.nltk.org/index.html#)
+- Repurposed my [moviedb project](https://github.com/hydramod/moviedb-project-3) to handle the leaderboard system 
 - Information for [ansi escape code colors](https://replit.com/talk/learn/ANSI-Escape-Codes-in-Python/22803)
 - Inspiration for [ASCII art](https://codegolf.stackexchange.com/questions/135936/ascii-hangman-in-progress)
 - Inspiration for [ASCII art](https://ascii.co.uk/art/hangman)
