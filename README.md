@@ -254,7 +254,7 @@ test_delete_score_player_not_found:
 
 #### Results
 Overall the automated tests have passed and are summarized in this test log
-
+```
 - [nltk_data] Downloading package wordnet to /home/gitpod/nltk_data...
 - [nltk_data]   Package wordnet is already up-to-date!
 - test_add_score_existing_player (tests.TestAddScore) ... Added 8 points to John. New score: 108
@@ -278,6 +278,7 @@ ok
 - Ran 12 tests in 5.780s
 
 - OK
+```
 
 ### Manual Testing
 
