@@ -5,18 +5,23 @@ from nltk.corpus import wordnet
 import gspread
 from google.oauth2.service_account import Credentials
 
-#download words and definitions from nltk corpus
+# download words and definitions from nltk corpus
 nltk.download('wordnet')
 english_words = list(wordnet.words())
 
-SCOPE = ["https://www.googleapis.com/auth/spreadsheets","https://www.googleapis.com/auth/drive.file","https://www.googleapis.com/auth/drive"]
+SCOPE = [
+    "https://www.googleapis.com/auth/spreadsheets",
+    "https://www.googleapis.com/auth/drive.file",
+    "https://www.googleapis.com/auth/drive"
+    ]
 CREDS = Credentials.from_service_account_file('creds.json')
 SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = CLIENT.open('Hangman')
 LEADERBOARD = SHEET.worksheet('Leaderboard')
 
-#function to print the title
+
+# function to print the title
 def title():
     print("\033[33m888                                                            ")
     print("888                                                            ")
@@ -31,6 +36,7 @@ def title():
     print("                         \"Y88P\"                               \033[0m")
     print("\n")
 
+
 # function to select difficulty level
 def select_difficulty_level():
     # Prints a menu of difficulty levels.
@@ -40,7 +46,6 @@ def select_difficulty_level():
     print("3. \033[38;5;208mHard\033[0m")
     print("4. \033[31mExpert\033[0m")
     level = int(input("Enter your choice (1-4): "))
-    #os.system('clear')
     # Depending on the user's choice of difficulty level, sets the number of hint calls allowed and the number of guesses.
     if level == 1:
         hint_calls_allowed = 2
@@ -59,6 +64,7 @@ def select_difficulty_level():
         print("\033[31mInvalid input. Please try again.\033[0m")
         return None, None
 
+
 # function to choose a random word
 def get_word(max_length):
     # initialize an empty string
@@ -69,6 +75,7 @@ def get_word(max_length):
         word = random.choice(english_words)
     # return the word in uppercase
     return word.upper()
+
 
 # function to play the game
 def play():
@@ -81,7 +88,7 @@ def play():
         # if the user entered an invalid input, continue the loop
         if max_length is None or hint_calls_allowed is None:
             continue
-        # get a random word from the list of English words with length <= max_length and convert 
+        # get a random word from the list of English words with length <= max_length and convert
         word = get_word(max_length)
         # create a string with "" as placeholders for the letters of the word
         word_completion = "_" * len(word)
@@ -92,10 +99,9 @@ def play():
         # set the number of tries to 6
         tries = 6
         # print the starting message, the current hangman display, word length and number of hints
-        #os.system('clear')
         print("Let's play Hangman!")
         print("Letters: " + str(len(word)))
-        print("Type # for a hint, you have",hint_calls_allowed,"left!" )
+        print("Type # for a hint, you have", hint_calls_allowed, "left!")
         print(display_hangman(tries))
         # print the current state of the word (with "" placeholders)
         print(word_completion)
@@ -120,7 +126,7 @@ def play():
             if len(guess) == 1 and guess.isalpha():
                 # if the letter was already guessed, print a message and continue the loop
                 if guess in guessed_letters:
-                    print("\033[36mYou already guessed the letter", guess,"\033[0m")
+                    print("\033[36mYou already guessed the letter", guess, "\033[0m")
                     # if the letter is not in the word, decrement the number of tries and add the letter to the list of guessed letters
                 elif guess not in word:
                     print("\033[31m" + guess + " is not in the word." + "\033[0m")
@@ -142,15 +148,15 @@ def play():
             elif len(guess) == len(word) and guess.isalpha():
                 # if the word was already guessed, print a message and continue the loop
                 if guess in guessed_words:
-                    print("\033[36mYou already guessed the word", guess,"\033[0m")
+                    print("\033[36mYou already guessed the word", guess, "\033[0m")
                 elif guess != word:
-                    # If the player guessed the wrong word, decrement the number of tries left, 
+                    # If the player guessed the wrong word, decrement the number of tries left,
                     # and append the guessed word to the list of guessed words.
                     print("\033[91m" + guess + " is not the word." + "\033[0m")
                     tries -= 1
                     guessed_words.append(guess)
                 else:
-                    # If the player guessed the correct word, set guessed to True and 
+                    # If the player guessed the correct word, set guessed to True and
                     # set the word completion to the correct word.
                     guessed = True
                     word_completion = word
@@ -170,36 +176,38 @@ def play():
             print("\033[31mSorry, you ran out of tries. The word was " + word + ".\033[0m")
         # Get input from the player to see if they want to play again.
         play_again = play_again_input()
-        #os.system('clear') 
-    # Print a message to thank the player for playing.
+        # Print a message to thank the player for playing.
     print("Thanks for playing Hangman!")
 
-#function to handle hints
+
+# function to handle hints
 def hint(word):
-    #get the synset (set of synonyms) for the word
+    # get the synset (set of synonyms) for the word
     synset = wordnet.synsets(word)
-    #if the synset exists
+    # if the synset exists
     if synset:
-        #get the definition of the first synset
+        # get the definition of the first synset
         definition = synset[0].definition()
         print("Definition:", definition)
     else:
         print("Sorry, no definition found for this word.")
-    #get a random index within the range of the word length
+    # get a random index within the range of the word length
     random_index = random.randint(0, len(word)-1)
-    #print the character at the random index in the word
+    # print the character at the random index in the word
     print("Random letter in the word:", word[random_index])
 
-#function to prompt user to play again
+
+# function to prompt user to play again
 def play_again_input():
-    #get user input to play again
+    # get user input to play again
     play_again_input = input("Would you like to play again? (Y/N)").upper()
-    #while the input is not Y or N
+    # while the input is not Y or N
     while play_again_input != 'Y' and play_again_input != 'N':
-        #prompt the user to enter either Y or N
+        # prompt the user to enter either Y or N
         play_again_input = input("Please enter either Y or N.").upper()
-    #return True if the input is Y, False if it is N
+    # return True if the input is Y, False if it is N
     return play_again_input == 'Y'
+
 
 # function to display the hangman
 def display_hangman(tries):
@@ -220,7 +228,7 @@ def display_hangman(tries):
                    |      O
                    |     \\|/
                    |      |
-                   |     / 
+                   |     /
                    -
                 """,
                 # head, torso, and both arms
@@ -230,7 +238,7 @@ def display_hangman(tries):
                    |      O
                    |     \\|/
                    |      |
-                   |      
+                   |
                    -
                 """,
                 # head, torso, and one arm
@@ -240,7 +248,7 @@ def display_hangman(tries):
                    |      O
                    |     \\|
                    |      |
-                   |     
+                   |
                    -
                 """,
                 # head and torso
@@ -250,7 +258,7 @@ def display_hangman(tries):
                    |      O
                    |      |
                    |      |
-                   |     
+                   |
                    -
                 """,
                 # head
@@ -258,29 +266,31 @@ def display_hangman(tries):
                    --------
                    |      |
                    |      O
-                   |    
-                   |      
-                   |     
+                   |
+                   |
+                   |
                    -
                 """,
                 # initial empty state
                 """
                    --------
                    |      |
-                   |      
-                   |    
-                   |      
-                   |     
+                   |
+                   |
+                   |
+                   |
                    -
                 """
             ]
     return stages[tries]
+
 
 # function to load scores from Google Sheets
 def load_scores():
     # retrieve all records from Google Sheets
     scores = LEADERBOARD.get_all_records()
     return scores
+
 
 # function to save scores to Google Sheets
 def save_scores(scores):
@@ -289,8 +299,9 @@ def save_scores(scores):
     # insert header row at the top of the sheet
     LEADERBOARD.insert_row(['Rank', 'Name', 'Score'], 1)
     # loop through each score and insert it as a new row in the Google Sheets
-    for i, score in enumerate(scores, start=2):  
+    for i, score in enumerate(scores, start=2):
         LEADERBOARD.insert_row([i - 1, score['Name'], score['Score']], i)
+
 
 # Function to add score to leaderboard
 def add_score(word):
@@ -318,6 +329,7 @@ def add_score(word):
         save_scores(scores)
         print(f"Added score: {name} - {score}")
 
+
 # View the leaderboard
 def view_leaderboard():
     # Load the scores from the file
@@ -332,6 +344,7 @@ def view_leaderboard():
         for i, score in enumerate(scores, start=1):
             print(f"{i}\t{score['Name']}\t{score['Score']}")
 
+
 # Delete a score
 def delete_score():
     # Get the name of the player to delete
@@ -340,7 +353,8 @@ def delete_score():
     scores = load_scores()
     # Create a new list of scores without the specified player
     updated_scores = [score for score in scores if name.lower() not in score['Name'].lower()]
-    # If the length of the updated list is the same as the original, the player was not found
+    # If the length of the updated list is the same as the original,
+    # the player was not found
     if len(updated_scores) == len(scores):
         print(f"No player with name '{name}' found.")
     else:
@@ -348,6 +362,7 @@ def delete_score():
         save_scores(updated_scores)
         # Inform the user that the player was deleted
         print(f"Deleted player: {name}")
+
 
 # Display the leaderboard menu
 def leaderboard_menu():
@@ -362,25 +377,26 @@ def leaderboard_menu():
         # Process the user's choice
         if choice == '1':
             # Clear the screen and display the leaderboard
-            #os.system('clear')
+            os.system('clear')
             view_leaderboard()
         elif choice == '2':
             # Clear the screen and delete a score
-            #os.system('clear')
+            os.system('clear')
             delete_score()
         elif choice == '3':
             # Return to the main menu
-            main()            
+            main()
             break
         else:
             # Inform the user of an invalid choice
-            print("Invalid choice. Please enter a number between 1 and 3.") 
+            print("Invalid choice. Please enter a number between 1 and 3.")
+
 
 # Main function to start the game
 def main():
     # Display the title screen
     title()
-    while True: 
+    while True:
         # Display the main menu options
         print("\nPick an option:")
         print("1. Start a new game")
@@ -393,11 +409,11 @@ def main():
         # Process the user's choice
         if choice == '1':
             # Clear the screen and start a new game
-            #os.system('clear')
+            os.system('clear')
             play()
         elif choice == '2':
             # Clear the screen and display the leaderboard menu
-            #os.system('clear')
+            os.system('clear')
             leaderboard_menu()
         elif choice == '3':
             # Quit the game
@@ -406,6 +422,7 @@ def main():
         else:
             # Inform the user of an invalid choice
             print("Invalid choice. Please enter a number between 1 and 3.")
+
 
 # call the main function
 if __name__ == "__main__":

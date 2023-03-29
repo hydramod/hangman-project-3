@@ -322,6 +322,8 @@ ok
 
 The game was uploaded to a cloud platform called Heroku. To do this, a new application was created and named in the settings tab.
 
+Configuration variables that include the required Google API credentials were set under the config vars key.
+
 Additionally, buildpacks for both Python and Node.js were added in that order by selecting "Add buildpack". This ensures that the necessary dependencies are installed and configured correctly on Heroku.
 
 To deploy the app, the "Deployment Method" was selected under the Deploy tab, and then "GitHub" was clicked to connect to the relevant repository. "Enable Automatic Deploys" was also selected so that the app could be rebuilt automatically every time changes were pushed to GitHub.

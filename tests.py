@@ -8,6 +8,9 @@ from run import get_word, display_hangman, play, main, load_scores, save_scores,
 
 
 class TestGetWordReturnsValidEnglishWordInUppercase(unittest.TestCase):
+   """
+   Tests the `get_word()` function to ensure it returns a valid English word in uppercase letters.
+   """
 
    def setUp(self):
       # Download the wordnet corpus before running tests
@@ -31,8 +34,10 @@ class TestGetWordReturnsValidEnglishWordInUppercase(unittest.TestCase):
       nltk.download('wordnet', quiet=True)
 
 class TestDisplayHangman(unittest.TestCase):
+   """
+   Test that display_hangman() returns the expected ASCII art for each try
+   """
 
-   # Test that display_hangman() returns the expected ASCII art for each try
    def test_display_hangman(self):
       expected = [  # final state: head, torso, both arms, and both legs
                 """
@@ -51,7 +56,7 @@ class TestDisplayHangman(unittest.TestCase):
                    |      O
                    |     \\|/
                    |      |
-                   |     / 
+                   |     /
                    -
                 """,
                 # head, torso, and both arms
@@ -61,7 +66,7 @@ class TestDisplayHangman(unittest.TestCase):
                    |      O
                    |     \\|/
                    |      |
-                   |      
+                   |
                    -
                 """,
                 # head, torso, and one arm
@@ -71,7 +76,7 @@ class TestDisplayHangman(unittest.TestCase):
                    |      O
                    |     \\|
                    |      |
-                   |     
+                   |
                    -
                 """,
                 # head and torso
@@ -81,7 +86,7 @@ class TestDisplayHangman(unittest.TestCase):
                    |      O
                    |      |
                    |      |
-                   |     
+                   |
                    -
                 """,
                 # head
@@ -89,19 +94,19 @@ class TestDisplayHangman(unittest.TestCase):
                    --------
                    |      |
                    |      O
-                   |    
-                   |      
-                   |     
+                   |
+                   |
+                   |
                    -
                 """,
                 # initial empty state
                 """
                    --------
                    |      |
-                   |      
-                   |    
-                   |      
-                   |     
+                   |
+                   |
+                   |
+                   |
                    -
                 """
             ]
@@ -110,10 +115,12 @@ class TestDisplayHangman(unittest.TestCase):
          assert display_hangman(tries) == expected[tries]
 
 class TestPlay(unittest.TestCase):
+   """
+   Test that play() prompts the user to play the game and calls the function to start the game
+   """
 
    @patch('builtins.input', side_effect=['1'])
    def test_play(self, mock_input):
-      # Test that play() prompts the user to play the game and calls the function to start the game
       with patch('sys.stdout', new_callable=io.StringIO) as mock_stdout:
          play()
          # get the value of stdout
@@ -122,10 +129,12 @@ class TestPlay(unittest.TestCase):
          self.assertIn("Let's play Hangman!", output)
 
 class TestMain(unittest.TestCase):
+   """
+   Test that main() prompts the user to play the game and calls the function to start the game
+   """
 
    @patch('builtins.input', side_effect=['3']) # changed the value to '3'
    def test_main(self, mock_input):
-      # Test that main() prompts the user to play the game and calls the function to start the game
       with patch('sys.stdout', new_callable=io.StringIO) as mock_stdout:
          # patch the main() function so that it does not execute during testing
          main()
@@ -135,28 +144,31 @@ class TestMain(unittest.TestCase):
          self.assertIn("1. Start a new game", output)
 
 class TestLoadScores(unittest.TestCase):
+   """
+   Tests the `load_scores()` function to ensure it returns the correct leaderboard records.
+   """
     
    @patch('run.LEADERBOARD.get_all_records')
    def test_load_scores_returns_records(self, mock_get_all_records):
       # Set up mock return value
       mock_records = [{'Name': 'John', 'Score': 100}, {'Name': 'Jane', 'Score': 90}]
       mock_get_all_records.return_value = mock_records
-      
       # Call the function and check the return value
       result = load_scores()
       self.assertEqual(result, mock_records)
 
 class TestSaveScores(unittest.TestCase):
-    
+    """
+    Tests the `save_scores(scores)` function to ensure it clears the leaderboard and inserts the new scores.
+    """
+
    @patch('run.LEADERBOARD.clear')
    @patch('run.LEADERBOARD.insert_row')
    def test_save_scores_clears_and_inserts_rows(self, mock_insert_row, mock_clear):
       # Set up mock input
       mock_scores = [{'Name': 'John', 'Score': 100}, {'Name': 'Jane', 'Score': 90}]
-      
       # Call the function
       save_scores(mock_scores)
-      
       # Check that clear() and insert_row() have been called with the correct arguments
       mock_clear.assert_called_once()
       mock_insert_row.assert_has_calls([call(['Rank', 'Name', 'Score'], 1),
@@ -164,7 +176,10 @@ class TestSaveScores(unittest.TestCase):
                                        call([2, 'Jane', 90], 3)])
                                           
 class TestAddScore(unittest.TestCase):
-    
+   """
+   Tests the `add_score(word)` function to ensure it adds a new player's score or updates an existing player's score.
+   """
+
    @patch('run.input')
    @patch('run.load_scores')
    @patch('run.save_scores')
@@ -194,6 +209,11 @@ class TestAddScore(unittest.TestCase):
       mock_save_scores.assert_called_once_with([{'Name': 'John', 'Score': 108}])
         
 class TestViewLeaderboard(unittest.TestCase):
+   """
+   Tests the view_leaderboard function.
+   Tests no scores are found in the leaderboard.
+   Tests when there are scores in the leaderboard.
+   """
     
    @patch('run.load_scores')
    def test_view_leaderboard_no_scores(self, mock_load_scores):
@@ -214,6 +234,11 @@ class TestViewLeaderboard(unittest.TestCase):
       mock_load_scores.return_value = mock_scores
 
 class TestDeleteScore(unittest.TestCase):
+   """
+   Tests the delete_score function.
+   Tests that scores are deleted.
+   Tests if player to delete is not found.
+   """
 
    @patch('sys.stdout', new_callable=io.StringIO)
    @patch('builtins.input', return_value='John')
