@@ -142,12 +142,6 @@ Run the following command to start the tests:
 python -m unittest -vv tests.py
 ```
 
-Initiatiing the Test class to run the following test cases
-
-```python
-class Test(unittest.TestCase):
-```
-
 #### 1. TestGetWordReturnsValidEnglishWordInUppercase
 Tests the get_word() function to ensure that it returns a valid English word in uppercase letters.
 
