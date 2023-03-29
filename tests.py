@@ -4,7 +4,9 @@ import nltk
 from nltk.corpus import wordnet
 from unittest.mock import patch, call
 from io import StringIO
-from run import get_word, display_hangman, play, main, load_scores, save_scores, add_score, view_leaderboard, delete_score
+from run import (get_word, display_hangman, play, main,
+                 load_scores, save_scores, add_score,
+                 view_leaderboard, delete_score)
 
 
 class TestGetWordReturnsValidEnglishWordInUppercase(unittest.TestCase):
@@ -177,7 +179,9 @@ class TestSaveScores(unittest.TestCase):
 
     @patch('run.LEADERBOARD.clear')
     @patch('run.LEADERBOARD.insert_row')
-    def test_save_scores_clears_and_inserts_rows(self, mock_insert_row, mock_clear):
+    def test_save_scores_clears_and_inserts_rows(self,
+                                                 mock_insert_row,
+                                                 mock_clear):
         # Set up mock input
         mock_scores = [{'Name': 'John', 'Score': 100},
                        {'Name': 'Jane', 'Score': 90}]
@@ -200,7 +204,8 @@ class TestAddScore(unittest.TestCase):
     @patch('run.input')
     @patch('run.load_scores')
     @patch('run.save_scores')
-    def test_add_score_new_player(self, mock_save_scores, mock_load_scores, mock_input):
+    def test_add_score_new_player(self, mock_save_scores,
+                                  mock_load_scores, mock_input):
         # Set up mock inputs
         mock_input.side_effect = ['John', 'testword']
         mock_load_scores.return_value = []
@@ -215,7 +220,8 @@ class TestAddScore(unittest.TestCase):
     @patch('run.input')
     @patch('run.load_scores')
     @patch('run.save_scores')
-    def test_add_score_existing_player(self, mock_save_scores, mock_load_scores, mock_input):
+    def test_add_score_existing_player(self, mock_save_scores,
+                                       mock_load_scores, mock_input):
         # Set up mock inputs
         mock_input.side_effect = ['John', 'testword']
         mock_load_scores.return_value = [{'Name': 'John', 'Score': 100}]
@@ -297,3 +303,4 @@ class TestDeleteScore(unittest.TestCase):
         # Check that the user was informed that the player was not found
         expected_output = "No player with name 'Jane' found.\n"
         self.assertEqual(mock_stdout.getvalue(), expected_output)
+        

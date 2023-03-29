@@ -308,6 +308,8 @@ ok
 
 ### Code Validator Test
 
+Two validators were used for this [pep8ci]([pep8ci](https://pep8ci.herokuapp.com/)) and pycodestyle, pycodestyle is meant to be the replacement for pep8 which is why i have used it here.
+
 To run the validator the pycodestyle module is required
 
 ```
@@ -323,47 +325,26 @@ pycodestyle run.py
 pycodestyle tests.py
 ```
 
-Both run.py and tests.py pass the pycodestyle validator, however with one annoyance, the validator flags my comments as being over 79 characters long, however this does not have any negative impact on code functionality. Keeping comments as is gives good insight on how the code functions and helps with future development if required.
+The pycodestyle validator will output nothing if the code passes with no errors. 
+You can run the following commands to see the full output of the pycodestyle validator if you wish:
+```
+pycodestyle -vv run.py
+```
+
+```
+pycodestyle -vv tests.py
+```
+
+Both run.py and tests.py pass the pycodestyle and the pep8 validator. with no errors
 
 - run.py
 ```
-run.py:26:80: E501 line too long (84 > 79 characters)
-run.py:30:80: E501 line too long (83 > 79 characters)
-run.py:37:80: E501 line too long (82 > 79 characters)
-run.py:50:80: E501 line too long (122 > 79 characters)
-run.py:64:80: E501 line too long (105 > 79 characters)
-run.py:87:80: E501 line too long (109 > 79 characters)
-run.py:92:80: E501 line too long (96 > 79 characters)
-run.py:96:80: E501 line too long (101 > 79 characters)
-run.py:102:80: E501 line too long (98 > 79 characters)
-run.py:116:80: E501 line too long (117 > 79 characters)
-run.py:118:80: E501 line too long (115 > 79 characters)
-run.py:128:80: E501 line too long (90 > 79 characters)
-run.py:132:80: E501 line too long (135 > 79 characters)
-run.py:138:80: E501 line too long (109 > 79 characters)
-run.py:148:80: E501 line too long (118 > 79 characters)
-run.py:153:80: E501 line too long (88 > 79 characters)
-run.py:158:80: E501 line too long (95 > 79 characters)
-run.py:164:80: E501 line too long (85 > 79 characters)
-run.py:178:80: E501 line too long (81 > 79 characters)
-run.py:183:80: E501 line too long (89 > 79 characters)
+All clear, no errors found
 ```
 
 tests.py
 ```
-tests.py:7:80: E501 line too long (122 > 79 characters)
-tests.py:12:80: E501 line too long (99 > 79 characters)
-tests.py:114:80: E501 line too long (105 > 79 characters)
-tests.py:121:80: E501 line too long (95 > 79 characters)
-tests.py:136:80: E501 line too long (95 > 79 characters)
-tests.py:142:80: E501 line too long (82 > 79 characters)
-tests.py:152:80: E501 line too long (92 > 79 characters)
-tests.py:168:80: E501 line too long (108 > 79 characters)
-tests.py:173:80: E501 line too long (84 > 79 characters)
-tests.py:179:80: E501 line too long (89 > 79 characters)
-tests.py:188:80: E501 line too long (118 > 79 characters)
-tests.py:194:80: E501 line too long (88 > 79 characters)
-tests.py:209:80: E501 line too long (93 > 79 characters)
+All clear, no errors found
 ```
 
 ## Technologies

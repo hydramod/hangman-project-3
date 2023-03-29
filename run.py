@@ -27,7 +27,8 @@ def title():
     print("888                                                            ")
     print("888                                                            ")
     print("88888b.  8888b. 88888b.  .d88b. 88888b.d88b.  8888b. 88888b.  ")
-    print("888 \"88b    \"88b888 \"88bd88P\"88b888 \"888 \"88b    \"88b888 \"88b")
+    print("888 \"88b    \"88b888 \"88bd88P\"88b888 \"888 \"88b    \"88b"
+          "888 \"88b")
     print("888  888.d888888888  888888  888888  888  888.d888888888  888 ")
     print("888  888888  888888  888Y88b 888888  888  888888  888888  888 ")
     print("888  888\"Y888888888  888 \"Y88888888  888  888\"Y888888888  888")
@@ -189,12 +190,14 @@ def play():
             print("\n")
         if guessed:
             # If the player has guessed the word
-            print("\033[33mCongratulations, you guessed the word! You win!\033[0m")
+            print("\033[33mCongratulations, you guessed "
+                  "the word! You win!\033[0m")
             add_score(word)
         else:
             # If the player has run out of tries
             print(
-                "\033[31mSorry, you ran out of tries. The word was " + word + ".\033[0m")
+                "\033[31mSorry, you ran out of tries. "
+                "The word was " + word + ".\033[0m")
         # Get input from the player to see if they want to play again.
         play_again = play_again_input()
         # Print a message to thank the player for playing.
