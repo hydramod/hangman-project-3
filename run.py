@@ -23,18 +23,18 @@ LEADERBOARD = SHEET.worksheet('Leaderboard')
 
 # function to print the title
 def title():
-    print("\033[33m888                                                            ")
+    print("\033[33m888                                                      ")
     print("888                                                            ")
     print("888                                                            ")
     print("88888b.  8888b. 88888b.  .d88b. 88888b.d88b.  8888b. 88888b.  ")
-    print("888 \"88b    \"88b888 \"88bd88P\"88b888 \"888 \"88b    \"88b888 \"88b ")
+    print("888 \"88b    \"88b888 \"88bd88P\"88b888 \"888 \"88b    \"88b888 \"88b")
     print("888  888.d888888888  888888  888888  888  888.d888888888  888 ")
     print("888  888888  888888  888Y88b 888888  888  888888  888888  888 ")
-    print("888  888\"Y888888888  888 \"Y88888888  888  888\"Y888888888  888 ")
+    print("888  888\"Y888888888  888 \"Y88888888  888  888\"Y888888888  888")
     print("                             888                              ")
     print("                        Y8b d88P                              ")
     print(
-        "                         \"Y88P\"                               \033[0m")
+        "                         \"Y88P\"                          \033[0m")
     print("\n")
 
 
@@ -47,7 +47,8 @@ def select_difficulty_level():
     print("3. \033[38;5;208mHard\033[0m")
     print("4. \033[31mExpert\033[0m")
     level = int(input("Enter your choice (1-4): "))
-    # Depending on the user's choice of difficulty level, sets the number of hint calls allowed and the number of guesses.
+    # Depending on the user's choice of difficulty level,
+    # sets the number of hint calls allowed and the number of guesses.
     if level == 1:
         hint_calls_allowed = 2
         return 5, hint_calls_allowed
@@ -61,7 +62,8 @@ def select_difficulty_level():
         hint_calls_allowed = 8
         return 45, hint_calls_allowed
     else:
-        # If the user enters an invalid choice, prints an error message and returns None for both values.
+        # If the user enters an invalid choice,
+        # prints an error message and returns None for both values.
         print("\033[31mInvalid input. Please try again.\033[0m")
         return None, None
 
@@ -84,22 +86,26 @@ def play():
     play_again = True
     # loop until the user chooses to stop playing
     while play_again:
-        # select the difficulty level and get the max length of the word and the number of hint calls allowed
+        # select the difficulty level and get the max length
+        # of the word and the number of hint calls allowed
         max_length, hint_calls_allowed = select_difficulty_level()
         # if the user entered an invalid input, continue the loop
         if max_length is None or hint_calls_allowed is None:
             continue
-        # get a random word from the list of English words with length <= max_length and convert
+        # get a random word from the list of English words
+        # with length <= max_length and convert
         word = get_word(max_length)
         # create a string with "" as placeholders for the letters of the word
         word_completion = "_" * len(word)
-        # initialize the guessed flag to False, and empty lists for guessed letters and guessed words
+        # initialize the guessed flag to False,
+        # and empty lists for guessed letters and guessed words
         guessed = False
         guessed_letters = []
         guessed_words = []
         # set the number of tries to 6
         tries = 6
-        # print the starting message, the current hangman display, word length and number of hints
+        # print the starting message, the current hangman display,
+        # word length and number of hints
         print("Let's play Hangman!")
         print("Letters: " + str(len(word)))
         print("Type # for a hint, you have", hint_calls_allowed, "left!")
@@ -113,9 +119,11 @@ def play():
                 # get a guess from the user (either a letter or a word)
                 guess = input("Please guess a letter or word: ").upper()
             except StopIteration:
-                # if the user cancels the game (e.g., by pressing Ctrl+C), exit the loop and return from the function
+                # if the user cancels the game (e.g., by pressing Ctrl+C),
+                # exit the loop and return from the function
                 return
-            # if the user wants a hint, and there are hints remaining, call the hint function and continue the loop
+            # if the user wants a hint, and there are hints remaining,
+            # call the hint function and continue the loop
             if guess == "#":
                 if hint_calls_allowed > 0:
                     hint(word)
@@ -125,17 +133,20 @@ def play():
                 continue
             # if the guess is a single letter
             if len(guess) == 1 and guess.isalpha():
-                # if the letter was already guessed, print a message and continue the loop
+                # if the letter was already guessed,
+                # print a message and continue the loop
                 if guess in guessed_letters:
                     print("\033[36mYou already guessed the letter",
                           guess, "\033[0m")
-                    # if the letter is not in the word, decrement the number of tries and add the letter to the list of guessed letters
+                    # if the letter is not in the word, decrement the number of
+                    # tries and add the letter to the list of guessed letters
                 elif guess not in word:
                     print("\033[31m" + guess +
                           " is not in the word." + "\033[0m")
                     tries -= 1
                     guessed_letters.append(guess)
-                    # if the letter is in the word, update the word_completion string with the guessed letter
+                    # if the letter is in the word,
+                    # update the word_completion string with the guessed letter
                 else:
                     print("\033[32mGood job,", guess, "is in the word!\033[0m")
                     guessed_letters.append(guess)
@@ -145,24 +156,28 @@ def play():
                     for index in indices:
                         word_as_list[index] = guess
                     word_completion = "".join(word_as_list)
-                    # if there are no more "" placeholders in the word_completion string, set the guessed flag to True
+                    # if there are no more "" placeholders in the
+                    # word_completion string, set the guessed flag to True
                     if "_" not in word_completion:
                         guessed = True
             # if the guess is a word of the same length as the target word
             elif len(guess) == len(word) and guess.isalpha():
-                # if the word was already guessed, print a message and continue the loop
+                # if the word was already guessed,
+                # print a message and continue the loop
                 if guess in guessed_words:
                     print("\033[36mYou already guessed the word",
                           guess, "\033[0m")
                 elif guess != word:
-                    # If the player guessed the wrong word, decrement the number of tries left,
+                    # If the player guessed the wrong word,
+                    # decrement the number of tries left,
                     # and append the guessed word to the list of guessed words.
                     print("\033[91m" + guess + " is not the word." + "\033[0m")
                     tries -= 1
                     guessed_words.append(guess)
                 else:
-                    # If the player guessed the correct word, set guessed to True and
-                    # set the word completion to the correct word.
+                    # If the player guessed the correct word,
+                    # set guessed to True and set the word
+                    # completion to the correct word.
                     guessed = True
                     word_completion = word
             else:
@@ -174,8 +189,7 @@ def play():
             print("\n")
         if guessed:
             # If the player has guessed the word
-            print(
-                "\033[33mCongratulations, you guessed the word! You win!\033[0m")
+            print("\033[33mCongratulations, you guessed the word! You win!\033[0m")
             add_score(word)
         else:
             # If the player has run out of tries
