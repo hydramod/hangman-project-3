@@ -139,7 +139,7 @@ The following modules are required to run the test code:
 
 Run the following command to start the tests:
 ```
-python -m unittest tests.py
+python -m unittest -vv tests.py
 ```
 
 Initiatiing the Test class to run the following test cases
@@ -148,134 +148,30 @@ Initiatiing the Test class to run the following test cases
 class Test(unittest.TestCase):
 ```
 
-1. Unit test the "get_word" function to ensure it returns a valid word in uppercase letters from the nltk corpus.
+#### 1. TestGetWordReturnsValidEnglishWordInUppercase
+Tests the get_word() function to ensure that it returns a valid English word in uppercase letters.
 
-- This test can be passed by verifying that the output of the "get_word" function is a string of uppercase letters that is a valid English word in the nltk corpus. We can use the following code to perform this test:
+test_get_word_returns_valid_word_in_uppercase
+- Downloads the wordnet corpus and creates a set of English words from the wordnet corpus.
+- Calls get_word() function to get a 5-letter word.
+- Asserts that the returned value is of type string.
+- Asserts that the returned string is in uppercase letters.
+- Asserts that the lowercase version of the returned word is a valid English word.
 
-```python
-    def setUp(self):
-        nltk.download('wordnet')
-        self.english_words = set(wordnet.words())
+#### 2. TestDisplayHangman
+Tests the display_hangman() function to ensure that it returns the expected ASCII art for each try.
 
-    def test_get_word_returns_valid_word_in_uppercase(self):
-        word = get_word()
-        self.assertIsInstance(word, str)
-        self.assertTrue(word.isupper())
-        self.assertIn(word.lower(), self.english_words)
+test_display_hangman
+- Defines a list of expected output strings, one for each possible state of the hangman.
+- Loops through each expected output string and tests that display_hangman() returns the correct output string.
 
-    def tearDown(self):
-        nltk.download('wordnet', quiet=True)
-```
-In this test, we first download the English words from the nltk corpus in the setUp method. We then define the test_get_word_returns_valid_word_in_uppercase method, which calls the get_word function and verifies that the returned word is a string of uppercase letters that is a valid English word in the nltk corpus. We use the isinstance function to verify that the returned word is a string, the isupper method to verify that it is in uppercase letters, and the assertIn method to verify that the lowercase version of the word is in the set of English words. We also use the tearDown method to clean up after the test, by downloading the nltk corpus again with the quiet argument set to True to suppress any output.
+#### 3. TestPlay
+Tests the play() function to ensure that it prompts the user to play the game and calls the function to start the game.
 
-2. Unit test the "display_hangman" function to ensure it returns the correct ASCII art representation of the hangman at each stage.
-
-- This test can be passed by manually comparing the output of the "display_hangman" function at each stage to the expected ASCII art representation of the hangman. Alternatively we can use the following code to perform this test:
-
-```python
-def test_display_hangman(self):
-        expected = [  # final state: head, torso, both arms, and both legs
-                """
-                   --------
-                   |      |
-                   |      O
-                   |     \\|/
-                   |      |
-                   |     / \\
-                   -
-                """,
-                # head, torso, both arms, and one leg
-                """
-                   --------
-                   |      |
-                   |      O
-                   |     \\|/
-                   |      |
-                   |     / 
-                   -
-                """,
-                # head, torso, and both arms
-                """
-                   --------
-                   |      |
-                   |      O
-                   |     \\|/
-                   |      |
-                   |      
-                   -
-                """,
-                # head, torso, and one arm
-                """
-                   --------
-                   |      |
-                   |      O
-                   |     \\|
-                   |      |
-                   |     
-                   -
-                """,
-                # head and torso
-                """
-                   --------
-                   |      |
-                   |      O
-                   |      |
-                   |      |
-                   |     
-                   -
-                """,
-                # head
-                """
-                   --------
-                   |      |
-                   |      O
-                   |    
-                   |      
-                   |     
-                   -
-                """,
-                # initial empty state
-                """
-                   --------
-                   |      |
-                   |      
-                   |    
-                   |      
-                   |     
-                   -
-                """
-            ]
-        for tries in range(len(expected)):
-            assert display_hangman(tries) == expected[tries]
-```
-This test compares the output of the "display_hangman" function at each stage to the expected ASCII art representation of the hangman.
-
-3. Test the "main" function to ensure it correctly calls the "play" function when executed.
-
-- To test the "main" function, we can use the unittest framework to mock the "play" function and then verify that the "play" function is called when the "main" function is executed. We can use the following code to perform this test:
-
-```python
-@patch('builtins.input', side_effect=['1'])
-   def test_play(self, mock_input):
-      # Test that play() prompts the user to play the game and calls the function to start the game
-      with patch('sys.stdout', new_callable=io.StringIO) as mock_stdout:
-         play()
-         # get the value of stdout
-         output = mock_stdout.getvalue()
-         # check that prompt to play game is printed to stdout
-         self.assertIn("Let's play Hangman!", output)
-
-@patch('builtins.input', side_effect=['3']) # changed the value to '3'
-def test_main(self, mock_input):
-   # Test that main() prompts the user to play the game and calls the function to start the game
-   with patch('sys.stdout', new_callable=io.StringIO) as mock_stdout:
-      # patch the main() function so that it does not execute during testing
-      main()
-      # get the value of stdout
-      output = mock_stdout.getvalue()
-      # Assert that the main() function has been called
-      self.assertIn("1. Start a new game", output)
-```
+test_play
+- Uses the @patch decorator to patch the built-in input() function so that it returns the value 1 (which corresponds to "Yes" when asked to play the game).
+- Uses the with statement to capture the output of play() function when called.
+- Asserts that the prompt to play the game is printed to the captured output.
 
 The StopIteration error which occurs when there are no more items left to iterate over. This error is caused by the mock_input object running out of values to return when input is called in the main function. To prevent this a try except was added to run.py
 
@@ -286,13 +182,102 @@ try:
    return
 ```
 
-4. Test the entire code by running it and playing the game to ensure it functions correctly and the game is enjoyable.
+#### 4. TestMain
+Tests the main() function to ensure that it prompts the user to play the game and calls the function to start the game.
 
-- To test the entire code by running it and playing the game, we can manually play the game and verify that it functions correctly and is enjoyable.
+test_main
+- Uses the @patch decorator to patch the built-in input() function so that it returns the value 3 (which corresponds to "Quit" when asked to play the game).
+- Uses the with statement to capture the output of main() function when called.
+- Asserts that the prompt to start a new game is printed to the captured output.
 
-Results for the automated and manual test have passed as expected, however on initial start of the unittest, the first run fails, this is due to nltk test first downloading the dictionary. Upon the second run All automated test pass with no issue. The game functions and plays as expected.
+#### 5. TestLoadScores
+Tests the load_scores() function to ensure that it returns the correct list of scores.
 
-![Hangman test](/docs/images/tests.png)
+test_load_scores_returns_records
+- Uses the @patch decorator to patch the get_all_records() method of the LEADERBOARD object so that it returns a mock list of records.
+- Calls the load_scores() function.
+- Asserts that the returned value is equal to the mock list of records.
+
+#### 6. TestSaveScores
+Tests the save_scores() function to ensure that it clears the leaderboard and inserts the correct rows.
+
+test_save_scores_clears_and_inserts_rows
+- Defines a mock list of scores.
+- Calls the save_scores() function with the mock list of scores.
+- Uses the assert_called_once() method to assert that the clear() method of the LEADERBOARD object has been called once.
+- Uses the assert_has_calls() method to assert that the insert_row() method of the LEADERBOARD object has been called with the correct arguments.
+
+#### 7. TestAddScore
+test_add_score_new_player
+- Tests that add_score correctly saves a new player's score when given a new player name and a new score.
+- mock_input.side_effect = ['John', 'testword']: Sets up mock user input to simulate the user entering "John" as the player name and "testword" as the word to be scored.
+- mock_load_scores.return_value = []: Sets up a mock return value for load_scores to simulate an empty list of scores.
+- add_score('testword'): Calls add_score with the mock input and mock return values.
+- mock_save_scores.assert_called_once_with([{'Name': 'John', 'Score': 8}]): Checks that save_scores was called with a list containing a dictionary representing the new player and their score.
+
+test_add_score_existing_player
+- Tests that add_score correctly updates an existing player's score when given an existing player name and a new score.
+- mock_input.side_effect = ['John', 'testword']: Sets up mock user input to simulate the user entering "John" as the player name and "testword" as the word to be scored.
+- mock_load_scores.return_value = [{'Name': 'John', 'Score': 100}]: Sets up a mock return value for load_scores to simulate a list containing one dictionary representing an existing player with a score of 100.
+- add_score('testword'): Calls add_score with the mock input and mock return values.
+- mock_save_scores.assert_called_once_with([{'Name': 'John', 'Score': 108}]): Checks that save_scores was called with a list containing a dictionary representing the existing player with their score updated to 108.
+
+#### 8. TestViewLeaderboard
+test_view_leaderboard_no_scores
+Tests that view_leaderboard correctly prints a message when there are no scores to display.
+- mock_load_scores.return_value = []: Sets up a mock return value for load_scores to simulate an empty list of scores.
+- with patch('builtins.print') as mock_print: view_leaderboard(): Calls view_leaderboard and captures the printed output in a mock print statement.
+- mock_print.assert_called_once_with('No scores found.'): Checks that the mock print statement was called with the expected message.
+
+test_view_leaderboard_with_scores
+- Tests that view_leaderboard correctly prints the leaderboard when there are scores to display.
+- mock_scores = [{'Name': 'John', 'Score': 100}, {'Name': 'Jane', 'Score': 90}]: Sets up a mock list of scores containing two dictionaries representing players and their scores.
+- mock_load_scores.return_value = mock_scores: Sets up a mock return value for load_scores to simulate the list of scores.
+- view_leaderboard(): Calls view_leaderboard.
+- The test case does not include an explicit check on the printed output, but the function's correct execution is implied by the lack of assertion errors.
+
+#### 9. TestDeleteScore
+test_delete_score_deletes_player:
+- Tests that delete_score correctly deletes a player from the list of scores when given the name of an existing player.
+- Sets up a mock list of scores containing one dictionary representing an existing player with a score of 100.
+- Calls delete_score with the mock list of scores and the name of the player to be deleted.
+- Checks that the player was deleted from the list of scores.
+- Checks that the user was informed that the player was deleted.
+
+test_delete_score_player_not_found:
+- Tests that delete_score correctly handles the case when a non-existent player name is provided.
+- Sets up a mock list of scores containing one dictionary representing an existing player with a score of 100.
+- Calls delete_score with the mock list of scores and the name of a non-existent player.
+- Checks that the user was informed that no player with the given name was found.
+
+- Both test cases use the @patch decorator to mock the input and output streams of the delete_score function, and the load_scores and save_scores functions that it calls internally. This allows the test cases to provide controlled inputs and observe the outputs and side effects of the function under test.
+
+#### Results
+Overall the automated tests have passed and are summarized in this test log
+
+- [nltk_data] Downloading package wordnet to /home/gitpod/nltk_data...
+- [nltk_data]   Package wordnet is already up-to-date!
+- test_add_score_existing_player (tests.TestAddScore) ... Added 8 points to John. New score: 108
+ok
+- test_add_score_new_player (tests.TestAddScore) ... Added score: John - 8
+ok
+- test_delete_score_deletes_player (tests.TestDeleteScore) ... ok
+- test_delete_score_player_not_found (tests.TestDeleteScore) ... ok
+- test_display_hangman (tests.TestDisplayHangman) ... ok
+- test_get_word_returns_valid_word_in_uppercase (tests.TestGetWordReturnsValidEnglishWordInUppercase) ... [nltk_data] Downloading package wordnet to /home/gitpod/nltk_data...
+- [nltk_data]   Package wordnet is already up-to-date!
+ok
+- test_load_scores_returns_records (tests.TestLoadScores) ... ok
+- test_main (tests.TestMain) ... ok
+- test_play (tests.TestPlay) ... ok
+- test_save_scores_clears_and_inserts_rows (tests.TestSaveScores) ... ok
+- test_view_leaderboard_no_scores (tests.TestViewLeaderboard) ... ok
+- test_view_leaderboard_with_scores (tests.TestViewLeaderboard) ... ok
+
+----------------------------------------------------------------------
+- Ran 12 tests in 5.780s
+
+- OK
 
 ### Manual Testing
 
