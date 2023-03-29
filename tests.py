@@ -41,76 +41,76 @@ class TestDisplayHangman(unittest.TestCase):
 
     def test_display_hangman(self):
         expected = [  # final state: head, torso, both arms, and both legs
-            """
-                     --------
-                     |      |
-                     |      O
-                     |     \\|/
-                     |      |
-                     |     / \\
-                     -
-                  """,
-            # head, torso, both arms, and one leg
-            """
-                     --------
-                     |      |
-                     |      O
-                     |     \\|/
-                     |      |
-                     |     /
-                     -
-                  """,
-            # head, torso, and both arms
-            """
-                     --------
-                     |      |
-                     |      O
-                     |     \\|/
-                     |      |
-                     |
-                     -
-                  """,
-            # head, torso, and one arm
-            """
-                     --------
-                     |      |
-                     |      O
-                     |     \\|
-                     |      |
-                     |
-                     -
-                  """,
-            # head and torso
-            """
-                     --------
-                     |      |
-                     |      O
-                     |      |
-                     |      |
-                     |
-                     -
-                  """,
-            # head
-            """
-                     --------
-                     |      |
-                     |      O
-                     |
-                     |
-                     |
-                     -
-                  """,
-            # initial empty state
-            """
-                     --------
-                     |      |
-                     |
-                     |
-                     |
-                     |
-                     -
-                  """
-        ]
+                """
+                   --------
+                   |      |
+                   |      O
+                   |     \\|/
+                   |      |
+                   |     / \\
+                   -
+                """,
+                # head, torso, both arms, and one leg
+                """
+                   --------
+                   |      |
+                   |      O
+                   |     \\|/
+                   |      |
+                   |     /
+                   -
+                """,
+                # head, torso, and both arms
+                """
+                   --------
+                   |      |
+                   |      O
+                   |     \\|/
+                   |      |
+                   |
+                   -
+                """,
+                # head, torso, and one arm
+                """
+                   --------
+                   |      |
+                   |      O
+                   |     \\|
+                   |      |
+                   |
+                   -
+                """,
+                # head and torso
+                """
+                   --------
+                   |      |
+                   |      O
+                   |      |
+                   |      |
+                   |
+                   -
+                """,
+                # head
+                """
+                   --------
+                   |      |
+                   |      O
+                   |
+                   |
+                   |
+                   -
+                """,
+                # initial empty state
+                """
+                   --------
+                   |      |
+                   |
+                   |
+                   |
+                   |
+                   -
+                """
+            ]
         # Loop through each expected ASCII art and test that display_hangman() returns the correct output
         for tries in range(len(expected)):
             assert display_hangman(tries) == expected[tries]
