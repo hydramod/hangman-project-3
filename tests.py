@@ -9,7 +9,8 @@ from run import get_word, display_hangman, play, main, load_scores, save_scores,
 
 class TestGetWordReturnsValidEnglishWordInUppercase(unittest.TestCase):
     """
-    Tests the `get_word()` function to ensure it returns a valid English word in uppercase letters.
+    Tests the `get_word()` function to ensure it returns a
+    valid English word in uppercase letters.
     """
 
     def setUp(self):
@@ -111,14 +112,16 @@ class TestDisplayHangman(unittest.TestCase):
                    -
                 """
             ]
-        # Loop through each expected ASCII art and test that display_hangman() returns the correct output
+        # Loop through each expected ASCII art and test
+        # that display_hangman() returns the correct output
         for tries in range(len(expected)):
             assert display_hangman(tries) == expected[tries]
 
 
 class TestPlay(unittest.TestCase):
     """
-    Test that play() prompts the user to play the game and calls the function to start the game
+    Test that play() prompts the user to play the
+    game and calls the function to start the game
     """
 
     @patch('builtins.input', side_effect=['1'])
@@ -133,13 +136,15 @@ class TestPlay(unittest.TestCase):
 
 class TestMain(unittest.TestCase):
     """
-    Test that main() prompts the user to play the game and calls the function to start the game
+    Test that main() prompts the user to play
+    the game and calls the function to start the game
     """
 
     @patch('builtins.input', side_effect=['3'])  # changed the value to '3'
     def test_main(self, mock_input):
         with patch('sys.stdout', new_callable=io.StringIO) as mock_stdout:
-            # patch the main() function so that it does not execute during testing
+            # patch the main() function so that it
+            # does not execute during testing
             main()
             # get the value of stdout
             output = mock_stdout.getvalue()
@@ -149,7 +154,8 @@ class TestMain(unittest.TestCase):
 
 class TestLoadScores(unittest.TestCase):
     """
-    Tests the `load_scores()` function to ensure it returns the correct leaderboard records.
+    Tests the `load_scores()` function to ensure it
+    returns the correct leaderboard records.
     """
 
     @patch('run.LEADERBOARD.get_all_records')
@@ -165,7 +171,8 @@ class TestLoadScores(unittest.TestCase):
 
 class TestSaveScores(unittest.TestCase):
     """
-    Tests the `save_scores(scores)` function to ensure it clears the leaderboard and inserts the new scores.
+    Tests the `save_scores(scores)` function to ensure
+    it clears the leaderboard and inserts the new scores.
     """
 
     @patch('run.LEADERBOARD.clear')
@@ -176,7 +183,8 @@ class TestSaveScores(unittest.TestCase):
                        {'Name': 'Jane', 'Score': 90}]
         # Call the function
         save_scores(mock_scores)
-        # Check that clear() and insert_row() have been called with the correct arguments
+        # Check that clear() and insert_row() have
+        # been called with the correct arguments
         mock_clear.assert_called_once()
         mock_insert_row.assert_has_calls([call(['Rank', 'Name', 'Score'], 1),
                                          call([1, 'John', 100], 2),
@@ -185,7 +193,8 @@ class TestSaveScores(unittest.TestCase):
 
 class TestAddScore(unittest.TestCase):
     """
-    Tests the `add_score(word)` function to ensure it adds a new player's score or updates an existing player's score.
+    Tests the `add_score(word)` function to ensure it adds a new player's
+    score or updates an existing player's score.
     """
 
     @patch('run.input')
