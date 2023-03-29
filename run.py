@@ -40,7 +40,7 @@ def select_difficulty_level():
     print("3. \033[38;5;208mHard\033[0m")
     print("4. \033[31mExpert\033[0m")
     level = int(input("Enter your choice (1-4): "))
-    os.system('clear')
+    #os.system('clear')
     # Depending on the user's choice of difficulty level, sets the number of hint calls allowed and the number of guesses.
     if level == 1:
         hint_calls_allowed = 2
@@ -92,7 +92,7 @@ def play():
         # set the number of tries to 6
         tries = 6
         # print the starting message, the current hangman display, word length and number of hints
-        os.system('clear')
+        #os.system('clear')
         print("Let's play Hangman!")
         print("Letters: " + str(len(word)))
         print("Type # for a hint, you have",hint_calls_allowed,"left!" )
@@ -170,7 +170,7 @@ def play():
             print("\033[31mSorry, you ran out of tries. The word was " + word + ".\033[0m")
         # Get input from the player to see if they want to play again.
         play_again = play_again_input()
-        os.system('clear') 
+        #os.system('clear') 
     # Print a message to thank the player for playing.
     print("Thanks for playing Hangman!")
 
@@ -362,11 +362,11 @@ def leaderboard_menu():
         # Process the user's choice
         if choice == '1':
             # Clear the screen and display the leaderboard
-            os.system('clear')
+            #os.system('clear')
             view_leaderboard()
         elif choice == '2':
             # Clear the screen and delete a score
-            os.system('clear')
+            #os.system('clear')
             delete_score()
         elif choice == '3':
             # Return to the main menu
@@ -393,11 +393,11 @@ def main():
         # Process the user's choice
         if choice == '1':
             # Clear the screen and start a new game
-            os.system('clear')
+            #os.system('clear')
             play()
         elif choice == '2':
             # Clear the screen and display the leaderboard menu
-            os.system('clear')
+            #os.system('clear')
             leaderboard_menu()
         elif choice == '3':
             # Quit the game
