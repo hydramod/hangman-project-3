@@ -167,14 +167,19 @@ def play():
                 # print a message and continue the loop
                 if guess in guessed_words:
                     print("\033[36mYou already guessed the word",
-                          guess, "\033[0m")
+                        guess, "\033[0m")
                 elif guess != word:
                     # If the player guessed the wrong word,
                     # decrement the number of tries left,
                     # and append the guessed word to the list of guessed words.
-                    print("\033[91m" + guess + " is not the word." + "\033[0m")
-                    tries -= 1
-                    guessed_words.append(guess)
+                    if not wordnet.synsets(guess):
+                        print("\033[91m" + guess + " is not a valid English word." + "\033[0m")
+                        tries -= 1
+                        guessed_words.append(guess)
+                    else:
+                        print("\033[91m" + guess + " is not the word." + "\033[0m")
+                        tries -= 1
+                        guessed_words.append(guess)
                 else:
                     # If the player guessed the correct word,
                     # set guessed to True and set the word
