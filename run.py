@@ -13,7 +13,7 @@ SCOPE = [
     "https://www.googleapis.com/auth/spreadsheets",
     "https://www.googleapis.com/auth/drive.file",
     "https://www.googleapis.com/auth/drive"
-    ]
+]
 CREDS = Credentials.from_service_account_file('creds.json')
 SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 CLIENT = gspread.authorize(SCOPED_CREDS)
@@ -33,7 +33,8 @@ def title():
     print("888  888\"Y888888888  888 \"Y88888888  888  888\"Y888888888  888 ")
     print("                             888                              ")
     print("                        Y8b d88P                              ")
-    print("                         \"Y88P\"                               \033[0m")
+    print(
+        "                         \"Y88P\"                               \033[0m")
     print("\n")
 
 
@@ -126,10 +127,12 @@ def play():
             if len(guess) == 1 and guess.isalpha():
                 # if the letter was already guessed, print a message and continue the loop
                 if guess in guessed_letters:
-                    print("\033[36mYou already guessed the letter", guess, "\033[0m")
+                    print("\033[36mYou already guessed the letter",
+                          guess, "\033[0m")
                     # if the letter is not in the word, decrement the number of tries and add the letter to the list of guessed letters
                 elif guess not in word:
-                    print("\033[31m" + guess + " is not in the word." + "\033[0m")
+                    print("\033[31m" + guess +
+                          " is not in the word." + "\033[0m")
                     tries -= 1
                     guessed_letters.append(guess)
                     # if the letter is in the word, update the word_completion string with the guessed letter
@@ -137,7 +140,8 @@ def play():
                     print("\033[32mGood job,", guess, "is in the word!\033[0m")
                     guessed_letters.append(guess)
                     word_as_list = list(word_completion)
-                    indices = [i for i, letter in enumerate(word) if letter == guess]
+                    indices = [i for i, letter in enumerate(
+                        word) if letter == guess]
                     for index in indices:
                         word_as_list[index] = guess
                     word_completion = "".join(word_as_list)
@@ -148,7 +152,8 @@ def play():
             elif len(guess) == len(word) and guess.isalpha():
                 # if the word was already guessed, print a message and continue the loop
                 if guess in guessed_words:
-                    print("\033[36mYou already guessed the word", guess, "\033[0m")
+                    print("\033[36mYou already guessed the word",
+                          guess, "\033[0m")
                 elif guess != word:
                     # If the player guessed the wrong word, decrement the number of tries left,
                     # and append the guessed word to the list of guessed words.
@@ -169,11 +174,13 @@ def play():
             print("\n")
         if guessed:
             # If the player has guessed the word
-            print("\033[33mCongratulations, you guessed the word! You win!\033[0m")
+            print(
+                "\033[33mCongratulations, you guessed the word! You win!\033[0m")
             add_score(word)
         else:
             # If the player has run out of tries
-            print("\033[31mSorry, you ran out of tries. The word was " + word + ".\033[0m")
+            print(
+                "\033[31mSorry, you ran out of tries. The word was " + word + ".\033[0m")
         # Get input from the player to see if they want to play again.
         play_again = play_again_input()
         # Print a message to thank the player for playing.
@@ -281,7 +288,7 @@ def display_hangman(tries):
                    |
                    -
                 """
-            ]
+    ]
     return stages[tries]
 
 
@@ -352,7 +359,8 @@ def delete_score():
     # Load the scores from the file
     scores = load_scores()
     # Create a new list of scores without the specified player
-    updated_scores = [score for score in scores if name.lower() not in score['Name'].lower()]
+    updated_scores = [score for score in scores if name.lower()
+                      not in score['Name'].lower()]
     # If the length of the updated list is the same as the original,
     # the player was not found
     if len(updated_scores) == len(scores):
