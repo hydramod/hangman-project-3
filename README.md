@@ -123,10 +123,6 @@ Function prompts the user to play again and returns True if the user enters 'Y' 
 - main():
 This function calls the play() function to start the game.
 
-## Flowchart
-
-![Hangman Flowchart](/docs/images/Flowchart%20Hangman.png)
-
 ## Game Testing
 
 ### Automated Testing
@@ -350,12 +346,25 @@ tests.py
 All clear, no errors found
 ```
 
+## Flowcharts
+
+Two different tools were used to generate flowcharts - Lucidchart and PyCharm's diagram tool. The main game flow was created using Lucidchart as it was visually appealing and presented the information in a clear and easy-to-understand manner. On the other hand, PyCharm's diagram tool was utilized to represent the test flow as it provided the most detailed and comprehensive information about the tests conducted. In summary, each tool was chosen based on its strengths and suitability for the specific task at hand.
+
+### Hangman game flowchart
+
+![Hangman Flowchart](/docs/images/Flowchart%20Hangman.png)
+
+### Automated tests flowchart
+
+![Hangman Tests Flowchart](/docs/images/tests%20flow.png)
+
 ## Technologies
 
 - Python for functionality and game logic
 - Developed using Visual Studio Code IDE
 - Source code hosted on GitHub, deployed with Heroku
 - Git used for code management
+- Lucidchart and pycharm for generation of flowcharts
 
 A brief description of the purpose of each module used in this code:
 
