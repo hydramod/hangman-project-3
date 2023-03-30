@@ -123,11 +123,14 @@ Function prompts the user to play again and returns True if the user enters 'Y' 
 - main():
 This function calls the play() function to start the game.
 
+## Flowchart
+
+![Hangman Flowchart](/docs/images/Flowchart%20Hangman.png)
+
 ## Game Testing
 
 ### Automated Testing
 
-Test requirements
 The following modules are required to run the test code:
 
 - unittest
@@ -353,6 +356,26 @@ All clear, no errors found
 - Developed using Visual Studio Code IDE
 - Source code hosted on GitHub, deployed with Heroku
 - Git used for code management
+
+A brief description of the purpose of each module used in this code:
+
+The main game modules:
+- random: This module provides functions for generating random numbers, which is used in the Hangman game to select a random word from a list of possible words.
+- os: This module provides a way to interact with the operating system, and is used in the Hangman game to clear the console screen after each guess.
+- nltk: The Natural Language Toolkit (NLTK) is a platform for building Python programs to work with human language data. It is used in the Hangman game to check if the guessed letter is a valid English alphabet or not.
+- nltk.corpus: This sub-module of NLTK provides access to a variety of linguistic data, such as word lists and corpora. In the Hangman game, it is used to access the wordnet corpus, which is a lexical database of English words.
+- gspread: This module allows programmatic access to Google Sheets, and is used in the Hangman game to write the game's statistics to a Google Sheet.
+- google.oauth2.service_account: This module provides a way to authenticate using a service account to access Google APIs, and is used in the Hangman game to authenticate the program to write to a Google Sheet.
+
+The test modules are as follows:
+- unittest: a built-in Python module that provides a framework for writing and running unit tests. It includes various assertion methods and test runners for automated testing of Python code.
+- io: a built-in Python module that provides a set of functions for working with streams of data.
+- wordnet: a sub-module of the NLTK library that provides access to the WordNet lexical database, which includes English words grouped into synonym sets (synsets) and organized by semantic relationships such as hypernymy (i.e., "is a" relationships).
+- unittest.mock: a built-in Python module that provides tools for mocking and patching objects and functions in unit tests.
+- patch: a decorator in the unittest.mock module that can be used to temporarily replace an object or function with a mock object or function during a test.
+- call: a class in the unittest.mock module that represents a call to a mock object or function, including its arguments and return value.
+- StringIO: a class in the io module that provides a way to create a stream of text data in memory that can be read from or written to like a file. This is useful for capturing output from functions or for testing functions that expect a file-like object as input.
+- run: a custom Python module that contains the functions to be tested. The module includes functions for loading and saving high scores, playing the hangman game, and displaying the leaderboard.
 
 ## Deployment
 
